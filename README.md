@@ -25,4 +25,4 @@ Thank you to **[Vidhi Agrawal](https://github.com/Vidhi-28)** for contributing t
 
 ## License
 
-The QuizBot project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for more information.
+The QuizBot project is licensed under the GPLv3 License. See the [LICENSE](LICENSE) file for more information.
