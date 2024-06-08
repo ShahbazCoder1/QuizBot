@@ -59,6 +59,3 @@ else:
 
 print(f"\nNumber of correct answers: {cor}")
 print(f"Number of incorrect answers: {incor}")
-
-
-
