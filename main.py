@@ -34,7 +34,7 @@ if (topic=="JAVA"):
         print("Incorrect")
         incor++
 
-elif (topic=="PYTHON"):
+#elif (topic=="PYTHON"):
     
 
 
