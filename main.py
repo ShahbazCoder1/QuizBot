@@ -41,6 +41,24 @@ dic = {
             "question": "What does the len() function do?\n a. Returns the number of items in an object\n b. Converts a value to an integer\n c. Returns a list of numbers\n d. Creates an empty dictionary",
             "answer": "a"
         }
+    ],
+    "MYSQL": [
+        {
+            "question": "What does SQL stand for?\na. Structured Query Language\nb. Simple Query Language\nc. Structured Question Language\nd. None of the above",
+            "answer": "a"
+        },
+        {
+            "question": "Which SQL keyword is used to sort the result set?\na. ORDER \nb. ORDER BY\nc. SORT BY\nd. None of the above",
+            "answer": "b"
+        },
+        {
+            "question": "Which SQL keyword is used to filter the result set? \na. FILTER BY\nb. FILTER\nc. WHERE\nd. None of the above",
+            "answer": "c"
+        },
+        {
+            "question": "How do you select all the columns from a table named 'employees'?\na. SELECT EMPLOYEES;\nb. SELECT * from employees\nc. SELECT all from employees\nd. None of the above",
+            "answer": "b"
+        }
     ]
 }
 
