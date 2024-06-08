@@ -1,41 +1,64 @@
-#main method
-print("LIST OF TOPICS AVAILABLE\n 1.JAVA\n2.PYTHON\n3.MY SQL\n")
-topic=input(print("Enter the topic you wish to take a quiz on: "))
-incor=0 #to store number of incorrect answers
-cor=0 #to store number of correct answers
-if (topic=="JAVA"):
-    x=input(print("What is the default value of a boolean variable in java?\n a.true\nb.0\nc.false\nd.void"))
-    if (x=="c"):
-        print("Correct")
-        cor++
-    else:
-        print("Incorrect")
-        incor++
-    
-    x=input(print("Which of the following is not a primitive data type in Java?\na.int\nb.char\nc.String\nd.None of the above"))
-    if(x==c):
-        print("Correct")
-        cor++
-    else:
-        print("Incorrect")
-        incor++
-    x=input(print("Which method is called when an object is created in Java?\na.constructor\nb.finalize()\nc.main()\nd.int()"))
-    if(x==a):
-        print("Correct")
-        cor++
-    else:
-        print("Incorrect")
-        incor++
-    x=input(print("What is the size of an int variable in Java?\na.int\nb.char\nc.String\nd.None of the above"))
-    if(x==c):
-        print("Correct")
-        cor++
-    else:
-        print("Incorrect")
-        incor++
+# Main method
+print("LIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MY SQL\n")
+topic = input("Enter the topic you wish to take a quiz on: ").upper()
+incor = 0
+cor = 0
 
-#elif (topic=="PYTHON"):
-    
+# dictionary
+dic = {
+    "JAVA": [
+        {
+            "question": "What is the default value of a boolean variable in java?\n a. true\n b. 0\n c. false\n d. void",
+            "answer": "c"
+        },
+        {
+            "question": "Which of the following is not a primitive data type in Java?\n a. int\n b. char\n c. String\n d. None of the above",
+            "answer": "c"
+        },
+        {
+            "question": "Which method is called when an object is created in Java?\n a. constructor\n b. finalize()\n c. main()\n d. int()",
+            "answer": "a"
+        },
+        {
+            "question": "What is the size of an int variable in Java?\n a. 4 bytes\n b. char\n c. String\n d. None of the above",
+            "answer": "a"
+        }
+    ],
+    "PYTHON": [
+        {
+            "question": "What is the output of print(2 ** 3)?\n a. 5\n b. 8\n c. 6\n d. 9",
+            "answer": "b"
+        },
+        {
+            "question": "Which of the following is a mutable data type in Python?\n a. tuple\n b. int\n c. list\n d. str",
+            "answer": "c"
+        },
+        {
+            "question": "How do you start a comment in Python?\n a. //\n b. <!--\n c. /*\n d. #",
+            "answer": "d"
+        },
+        {
+            "question": "What does the len() function do?\n a. Returns the number of items in an object\n b. Converts a value to an integer\n c. Returns a list of numbers\n d. Creates an empty dictionary",
+            "answer": "a"
+        }
+    ]
+}
+
+
+if topic in dic:
+    for i in dic[topic]:
+        x = input("\n" + i["question"] + "\n" + "\nAnswer: ").lower()
+        if x == i["answer"].lower():
+            print("\nCorrect")
+            cor += 1
+        else:
+            print("\nIncorrect")
+            incor += 1
+else:
+    print("Selected topic is not available.")
+
+print(f"\nNumber of correct answers: {cor}")
+print(f"Number of incorrect answers: {incor}")
 
 
 
