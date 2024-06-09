@@ -1,4 +1,19 @@
 # Main method
+title = '''
+  ____        _ 
+ / __ \      (_) 
+| |  | |_   _ _ ____ 
+| |  | | | | | |_  / 
+| |__| | |_| | |/ /_
+ \___\_\\__,_|_/____|
+ ____        _   
+|  _ \      | |  
+| |_) | ___ | |_ 
+|  _ < / _ \| __|
+| |_) | (_) | |_ 
+|____/ \___/ \__|
+'''
+print(title)
 print("LIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MYSQL\n")
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
 incor = 0
