@@ -2,6 +2,21 @@
 
 This Python project is a simple quiz bot that allows users to take quizzes on various topics.
 
+```bash
+  ____        _ 
+ / __ \      (_) 
+| |  | |_   _ _ ____ 
+| |  | | | | | |_  / 
+| |__| | |_| | |/ /_
+ \___\_\\__,_|_/____|
+ ____        _   
+|  _ \      | |  
+| |_) | ___ | |_ 
+|  _ < / _ \| __|
+| |_) | (_) | |_ 
+|____/ \___/ \__|
+```
+
 ## Features
 
 * Users can choose from a list of topics to take a quiz on.
