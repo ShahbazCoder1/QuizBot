@@ -1,5 +1,5 @@
 # Main method
-print("LIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MY SQL\n")
+print("LIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MYSQL\n")
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
 incor = 0
 cor = 0
@@ -44,7 +44,7 @@ dic = {
     ],
     "MYSQL": [
         {
-            "question": "What does SQL stand for?\na. Structured Query Language\nb. Simple Query Language\nc. Structured Question Language\nd. None of the above",
+            "question": "What does SQL stand for?\n\na. Structured Query Language\nb. Simple Query Language\nc. Structured Question Language\nd. None of the above",
             "answer": "a"
         },
         {
@@ -65,7 +65,7 @@ dic = {
 
 if topic in dic:
     for i in dic[topic]:
-        x = input("\n" + i["question"] + "\n" + "\nAnswer: ").lower()
+        x = input("\n"+ "Q: " + i["question"] + "\n" + "\nAnswer: ").lower()
         if x == i["answer"].lower():
             print("\nCorrect")
             cor += 1
