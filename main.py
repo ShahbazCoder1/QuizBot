@@ -5,7 +5,7 @@ title = '''
 | |  | |_   _ _ ____ 
 | |  | | | | | |_  / 
 | |__| | |_| | |/ /_
- \___\_\\__,_|_/____|
+ \___\_\\__,__|_/____|
  ____        _   
 |  _ \      | |  
 | |_) | ___ | |_ 
@@ -14,7 +14,7 @@ title = '''
 |____/ \___/ \__|
 '''
 print(title)
-print("LIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MYSQL\n")
+print("\nLIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MYSQL\n")
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
 incor = 0
 cor = 0
