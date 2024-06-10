@@ -1,5 +1,6 @@
 import google.generativeai as genai
 import os
+import tqdm as tq
 
 # Main method
 title = '''
@@ -26,7 +27,7 @@ model = genai.GenerativeModel('gemini-1.5-flash') #model setup
 sub=input("Enter the subject you wish to take the quiz on: ").upper()
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
 level= input("Enter the level of the quiz [beginner/intermediate/advanced]: ").upper()
-response = model.generate_content("Generate a python dictionary which contains 10 " +level+ " level questions on "+ topic + " from " +sub+ " along with four options as possible answers for each question. Show the four options with option numbers assigned to them serially and display the option number along with the answer while displaying the correct asnwer.") 
+response = model.generate_content(f"Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options with option numbers assigned to them serially and display the option number along with the answer while displaying the correct asnwer. Return only the code part.") 
 incor = 0
 cor = 0
 
