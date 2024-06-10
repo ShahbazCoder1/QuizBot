@@ -18,7 +18,7 @@ print( '''
 |____/  \___/  \__|
 ''' )
 
-GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
+GOOGLE_API_KEY='API_KEY'
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
