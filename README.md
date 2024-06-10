@@ -36,8 +36,8 @@ To use the QuizBot, simply run the `main.py` file. The bot will then prompt you 
 
 ## Contributers
 
-**[Md Shahbaz Hashmi Ansari](https://github.com/ShahbazCoder1)**
-**[Vidhi Agrawal](https://github.com/Vidhi-28)**
+- **[Md Shahbaz Hashmi Ansari](https://github.com/ShahbazCoder1)**
+- **[Vidhi Agrawal](https://github.com/Vidhi-28)**
 
 ## License
 
