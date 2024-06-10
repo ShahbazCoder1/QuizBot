@@ -34,9 +34,9 @@ To use the QuizBot, simply run the `main.py` file. The bot will then prompt you 
 3. Answer the questions to the best of your ability.
 4. Receive feedback on your answers and see your score.
 
-## Contributer
+## Contributers
 
-Thank you to **[Vidhi Agrawal](https://github.com/Vidhi-28)** for contributing to the QuizBot project!
+**[Md Shahbaz Hashmi Ansari](https://github.com/ShahbazCoder1)** **[Vidhi Agrawal](https://github.com/Vidhi-28)**
 
 ## License
 
