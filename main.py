@@ -18,15 +18,15 @@ title = '''
 '''
 print(title)
 
-GOOGLE_API_KEY='API_KEY'
+GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
 model = genai.GenerativeModel('gemini-1.5-flash') #model setup
-
+sub=input("Enter the subject you wish to take the quiz on: ").upper()
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
-
-response = model.generate_content("Generate a python dictionary which contains 10 questions on "+ topic + "along with four options and among those 4 options one answer should be the correct option.") 
+level= input("Enter the level of the quiz [beginner/intermediate/advanced]: ").upper()
+response = model.generate_content("Generate a python dictionary which contains 10 " +level+ " level questions on "+ topic + " from " +sub+ " along with four options as possible answers for each question. Show the four options in a proper numbered format and display the option number while displaying the correct asnwer.") 
 incor = 0
 cor = 0
 
