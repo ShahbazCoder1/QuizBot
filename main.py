@@ -1,3 +1,6 @@
+import google.generativeai as genai
+import os
+
 # Main method
 title = '''
   ____        _ 
@@ -14,6 +17,24 @@ title = '''
 |____/ \___/ \__|
 '''
 print(title)
+
+GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
+
+genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
+
+model = genai.GenerativeModel('gemini-1.5-flash') #model setup
+
+topic = input("Enter the topic you wish to take a quiz on: ").upper()
+
+response = model.generate_content("Generate a python dictionary which contains 10 questions on "+ topic + "along with four options and among those 4 options one answer should be the correct option.") 
+incor = 0
+cor = 0
+
+print(response.text)
+
+
+
+'''
 print("\nLIST OF TOPICS AVAILABLE\n1.JAVA\n2.PYTHON\n3.MYSQL\n")
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
 incor = 0
@@ -91,4 +112,4 @@ else:
     print("Selected topic is not available.")
 
 print(f"\nNumber of correct answers: {cor}")
-print(f"Number of incorrect answers: {incor}")
+print(f"Number of incorrect answers: {incor}")  '''
