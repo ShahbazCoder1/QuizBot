@@ -3,7 +3,7 @@ from tqdm import tqdm
 import time
 
 # Main method
-title = '''
+print( '''
   ____          _ 
  / __ \        (_) 
 | |  | | _   _  _  ____ 
@@ -16,9 +16,7 @@ title = '''
 |  _ <  / _ \ | __|
 | |_) || (_) || |_ 
 |____/  \___/  \__|
-'''
-
-print(title)
+''' )
 
 GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
 
