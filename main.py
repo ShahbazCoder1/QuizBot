@@ -21,7 +21,7 @@ print( '''
 #intructions here:
 
 # Program Start here:
-GOOGLE_API_KEY='API_KEY'
+GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
@@ -49,22 +49,17 @@ with tqdm(total=100, desc="Generating", ncols=100) as pbar:
 incor = 0
 cor = 0
 
-quiz = response.text.replace("```","").replace("python","")
+quiz = eval(response.text.replace("```","").replace("python",""))
 
-print(eval(quiz))
+print(quiz)
 
-'''
-if topic in dic:
-    for i in dic[topic]:
-        x = input("\n"+ "Q: " + i["question"] + "\n" + "\nAnswer: ").lower()
-        if x == i["answer"].lower():
-            print("\nCorrect")
-            cor += 1
-        else:
-            print("\nIncorrect")
-            incor += 1
-else:
-    print("Selected topic is not available.") '''
+
+for key, i in quiz.items():
+    options_str = i.get('options')
+    options_list = options_str  
+    options_display = "\n".join([f"{j+1}. {option}" for j, option in enumerate(options_list)]) 
+    x = input("\n" + f"Q: {key[1:]}: {i.get('question')}" + "\n" + options_display + "\nEnter your answer (1-4): ")
+
 
 print(f"\nNumber of correct answers: {cor}")
 print(f"Number of incorrect answers: {incor}")  
