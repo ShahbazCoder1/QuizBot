@@ -18,11 +18,15 @@ print( '''
 |____/  \___/  \__|
 ''' )
 
+#intructions here:
+
+# Program Start here:
 GOOGLE_API_KEY='API_KEY'
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
 model = genai.GenerativeModel('gemini-1.5-flash') #model setup
+# User input
 sub=input("Enter the subject you wish to take the quiz on: ").upper()
 topic = input("Enter the topic you wish to take a quiz on: ").upper()
 level= input("Enter the level of the quiz [beginner/intermediate/advanced]: ").upper()
@@ -31,10 +35,10 @@ print("\nGenerating quiz questions, please wait...")
 with tqdm(total=100, desc="Generating", ncols=100) as pbar:
     response = None
     while response is None:
+        pbar.update(20) #progress bar update by 20/100
         try:
-            pbar.update(20) #progress bar update by 20/100
             # Response here
-            response = model.generate_content(f"Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options with option numbers assigned to them serially and display the option number along with the answer while displaying the correct asnwer. Return only the code part.")
+            response = model.generate_content(f"Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options with option numbers assigned to them serially and display the option number along with the answer while displaying the correct answer. Return only the dictonary code part.")
             pbar.update(50) #progress bar update by 50/100
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -45,9 +49,9 @@ with tqdm(total=100, desc="Generating", ncols=100) as pbar:
 incor = 0
 cor = 0
 
-print(response.text)
+quiz = response.text.replace("```","").replace("python","")
 
-
+print(eval(quiz))
 
 '''
 if topic in dic:
