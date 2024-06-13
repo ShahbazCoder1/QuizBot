@@ -64,7 +64,15 @@ if topic in dic:
             print("\nIncorrect")
             incor += 1
 else:
-    print("Selected topic is not available.")
+    print("Selected topic is not available.") '''
 
 print(f"\nNumber of correct answers: {cor}")
-print(f"Number of incorrect answers: {incor}")  '''
+print(f"Number of incorrect answers: {incor}")  
+if cor==10:
+    print("Excellent performance!")
+elif cor>7:
+    print("Great performance!")
+elif cor>5:
+    print("Good job! Just a little more push.")
+else:
+    print("You can do better!")
