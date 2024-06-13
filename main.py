@@ -49,22 +49,26 @@ with tqdm(total=100, desc="Generating", ncols=100) as pbar:
 incor = 0
 cor = 0
 
-quiz = response.text.replace("```","").replace("python","")
+quiz = eval(response.text.replace("```","").replace("python",""))
 
-print(eval(quiz))
+print(quiz)
 
-'''
-if topic in dic:
-    for i in dic[topic]:
-        x = input("\n"+ "Q: " + i["question"] + "\n" + "\nAnswer: ").lower()
-        if x == i["answer"].lower():
-            print("\nCorrect")
-            cor += 1
-        else:
-            print("\nIncorrect")
-            incor += 1
-else:
-    print("Selected topic is not available.") '''
+
+for key, value in quiz.items():
+    print(f"\nQ: {value['question']}")
+    options = value['options']
+    for opt_key, opt_value in options.items():
+        print(f"{opt_key}: {opt_value}")
+
+    x = input("Enter your answer (a-d): ").strip().lower()
+
+    if x == value['answer']:
+        cor += 1
+        print("Correct")
+    else:
+        incor += 1
+        print("Incorrect")
+
 
 print(f"\nNumber of correct answers: {cor}")
 print(f"Number of incorrect answers: {incor}")  
