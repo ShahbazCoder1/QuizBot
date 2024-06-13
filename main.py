@@ -18,7 +18,8 @@ print( '''
 |____/  \___/  \__|
 ''' )
 
-#intructions here: Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follow.
+#intructions here:
+print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follow.")
 
 
 # Program Start here:
