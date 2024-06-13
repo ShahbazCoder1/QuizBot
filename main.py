@@ -72,7 +72,7 @@ for key, value in quiz.items():
 
 
 print(f"\nNumber of correct answers: {cor}")
-print(f"Number of incorrect answers: {incor}")  
+print(f"Number of incorrect answers: {incor} \n")  
 if cor==10:
     print("Excellent performance🥳!")
 elif cor>7:
