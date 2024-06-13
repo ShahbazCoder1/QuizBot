@@ -38,7 +38,7 @@ with tqdm(total=100, desc="Generating", ncols=100) as pbar:
         pbar.update(20) #progress bar update by 20/100
         try:
             # Response here
-            response = model.generate_content(f"Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options with option numbers assigned to them serially and display the option number along with the answer while displaying the correct answer. Return only the dictonary code part.")
+            response = model.generate_content(f"Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options along with alphabets assigned to them serially. Return only the dictonary code part.")
             pbar.update(50) #progress bar update by 50/100
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -54,20 +54,29 @@ quiz = eval(response.text.replace("```","").replace("python",""))
 print(quiz)
 
 
-for key, i in quiz.items():
-    options_str = i.get('options')
-    options_list = options_str  
-    options_display = "\n".join([f"{j+1}. {option}" for j, option in enumerate(options_list)]) 
-    x = input("\n" + f"Q: {key[1:]}: {i.get('question')}" + "\n" + options_display + "\nEnter your answer (1-4): ")
+for key, value in quiz.items():
+    print(f"\nQ: {value['question']}")
+    options = value['options']
+    for opt_key, opt_value in options.items():
+        print(f"{opt_key}: {opt_value}")
+
+    x = input("Enter your answer (a-d): ").strip().lower()
+
+    if x == value['answer']:
+        cor += 1
+        print("Correct")
+    else:
+        incor += 1
+        print("Incorrect")
 
 
 print(f"\nNumber of correct answers: {cor}")
 print(f"Number of incorrect answers: {incor}")  
 if cor==10:
-    print("Excellent performance!")
+    print("Excellent performance🥳!")
 elif cor>7:
-    print("Great performance!")
+    print("Great performance😃!")
 elif cor>5:
-    print("Good job! Just a little more push.")
+    print("Good job! Just a little more push🥰")
 else:
-    print("You can do better!")
+    print("Keep working. Better luck next time :)")
