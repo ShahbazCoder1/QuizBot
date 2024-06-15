@@ -5,3 +5,4 @@ autopep8
 # App
 google-generativeai
 tqdm
+python-telegram-bot
