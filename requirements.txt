@@ -6,3 +6,4 @@ autopep8
 google-generativeai
 tqdm
 python-telegram-bot
+python-telegram-bot==13.11 #when you are using python3
