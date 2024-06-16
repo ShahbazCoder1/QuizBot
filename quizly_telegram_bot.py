@@ -9,10 +9,10 @@ TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
 BOT_USERNAME: Final = '@Quisly_Bot'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text('Hello! Use /poll to create a poll.')
+    #await update.message.reply_text('Hello! Use /poll to create a poll.')
 
 
-    print( '''
+    await update.message.reply_text( '''
   ____          _ 
  / __ \        (_) 
 | |  | | _   _  _  ____ 
@@ -28,7 +28,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 ''' )
 
     #intructions here:
-    print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
+    await update.message.reply_text("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
 
 
     # Program Start here:
@@ -42,7 +42,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     topic = input("Enter the topic you wish to take a quiz on: ").upper()
     level= input("Enter the level of the quiz [beginner/intermediate/advanced]: ").upper()
     # Start the progress bar
-    print("\nGenerating quiz questions, please wait...")
+    await update.message.reply_text("\nGenerating quiz questions, please wait...")
     with tqdm(total=100, desc="Generating", ncols=100) as pbar:
         response = None
         while response is None:
@@ -62,35 +62,35 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     quiz = eval(response.text.replace("```","").replace("python",""))
 
-    print(quiz)
+    await update.message.reply_text(quiz)
 
 
     for key, value in quiz.items():
-        print(f"\nQ: {value['question']}")
+        await update.message.reply_text(f"\nQ: {value['question']}")
         options = value['options']
         for opt_key, opt_value in options.items():
-            print(f"{opt_key}: {opt_value}")
+            await update.message.reply_text(f"{opt_key}: {opt_value}")
 
         x = input("Enter your answer (a-d): ").strip().lower()
 
         if x == value['answer']:
             cor += 1
-            print("Correct")
+            await update.message.reply_text("Correct")
         else:
             incor += 1
-            print("Incorrect")
+            await update.message.reply_text("Incorrect")
 
 
-    print(f"\nNumber of correct answers: {cor}")
-    print(f"Number of incorrect answers: {incor} \n")  
+    await update.message.reply_text(f"\nNumber of correct answers: {cor}")
+    await update.message.reply_text(f"Number of incorrect answers: {incor} \n")  
     if cor==10:
-        print("Excellent performance🥳!")
+        await update.message.reply_text("Excellent performance🥳!")
     elif cor>7:
-        print("Great performance😃!")
+        await update.message.reply_text("Great performance😃!")
     elif cor>5:
-        print("Good job! Just a little more push🥰")
+        await update.message.reply_text("Good job! Just a little more push🥰")
     else:
-        print("Keep working. Better luck next time :)")
+        await update.message.reply_text("Keep working. Better luck next time :)")
 
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
