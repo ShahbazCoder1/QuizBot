@@ -7,7 +7,6 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ConversationHandler
 
 SUBJECT, TOPIC, LEVEL = range(3)
 
-
 TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
 BOT_USERNAME: Final = '@Quisly_Bot'
 
