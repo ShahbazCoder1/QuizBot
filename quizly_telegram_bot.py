@@ -3,33 +3,52 @@ from tqdm import tqdm
 import time
 from typing import Final
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import ApplicationBuilder, CommandHandler, ConversationHandler, ContextTypes, MessageHandler, filters
+
+SUBJECT, TOPIC, LEVEL = range(3)
+
 
 TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
 BOT_USERNAME: Final = '@Quisly_Bot'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    #await update.message.reply_text('Hello! Use /poll to create a poll.')
-
-
-    await update.message.reply_text( '''
-  ____          _ 
- / __ \        (_) 
-| |  | | _   _  _  ____ 
-| |  | || | | || ||_  / 
-| |__| || |_| || | / /_ 
- \___\_\ \__,_||_|/____|
- ____          _   
-|  _ \        | |  
-| |_) |  ___  | |_ 
-|  _ <  / _ \ | __|
-| |_) || (_) || |_ 
-|____/  \___/  \__|
-''' )
+    await update.message.reply_text(f'''
+      ____          _ 
+     / __ \        (_) 
+    | |  | | _   _  _  ____ 
+    | |  | || | | || ||_  / 
+    | |__| || |_| || | / /_ 
+     \___\_\ \__,_||_|/____|
+     ____          _   
+    |  _ \        | |  
+    | |_) |  ___  | |_ 
+    |  _ <  / _ \ | __|
+    | |_) || (_) || |_ 
+    |____/  \___/  \__|
+    ''' )
 
     #intructions here:
     await update.message.reply_text("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
+    await update.message.reply_text("Enter the subject you wish to take the quiz on: ")
+    return SUBJECT
 
+
+async def subj(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    context.user_data['subject'] = update.message.text
+    await update.message.reply_text("Enter the topic you wish to take a quiz on: ")
+    return TOPIC
+
+async def topi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    context.user_data['topic'] = update.message.text
+    await update.message.reply_text("Enter the level of the quiz [beginner/intermediate/advanced]: ")
+    return LEVEL
+
+async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    context.user_data['level'] = update.message.text
+    await update.message.reply_text("\nGenerating quiz questions, please wait...")
+
+'''
+async def quizRun(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # Program Start here:
     GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
@@ -94,28 +113,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text("Good job! Just a little more push🥰")
     else:
         await update.message.reply_text("Keep working. Better luck next time :)")
+'''
 
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start))
 
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler("start", start)],
+        states={
+            SUBJECT: [MessageHandler(filters.TEXT & ~filters.COMMAND, subj)],
+            TOPIC: [MessageHandler(filters.TEXT & ~filters.COMMAND, topi)],
+            LEVEL: [MessageHandler(filters.TEXT & ~filters.COMMAND, leve)],
+
+        },
+        fallbacks=[CommandHandler("start", start)],
+    )
+
+    application.add_handler(conv_handler)
     application.run_polling()
 
 if __name__ == '__main__':
     main()
-'''
-
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-
-
-async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text('Hello')
-
-
-app = ApplicationBuilder().token("7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU").build()
-
-app.add_handler(CommandHandler("hello", hello))
-
-app.run_polling() '''
