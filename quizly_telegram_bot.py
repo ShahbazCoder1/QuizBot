@@ -7,8 +7,8 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ConversationHandler
 
 SUBJECT, TOPIC, LEVEL = range(3)
 
-TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
-BOT_USERNAME: Final = '@Quisly_Bot'
+TOKEN: Final = 'TOKEN_HERE'
+BOT_USERNAME: Final = 'USER_NAME HERE'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'''
@@ -27,7 +27,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ''' )
 
     #intructions here:
-    await update.message.reply_text("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
+    #await update.message.reply_text("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
     await update.message.reply_text("Enter the subject you wish to take the quiz on: ")
     return SUBJECT
 
@@ -50,7 +50,7 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def quizRun(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # Program Start here:
-    GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
+    GOOGLE_API_KEY='API_KEY'
 
     genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
