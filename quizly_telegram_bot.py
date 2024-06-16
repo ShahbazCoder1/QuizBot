@@ -3,7 +3,7 @@ from tqdm import tqdm
 import time
 from typing import Final
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
 TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
 BOT_USERNAME: Final = '@Quisly_Bot'
@@ -32,15 +32,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
     # Program Start here:
-    GOOGLE_API_KEY='API_KEY'
+    GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
 
     genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
     model = genai.GenerativeModel('gemini-1.5-flash') #model setup
     # User input
-    sub=input("Enter the subject you wish to take the quiz on: ").upper()
-    topic = input("Enter the topic you wish to take a quiz on: ").upper()
-    level= input("Enter the level of the quiz [beginner/intermediate/advanced]: ").upper()
+    await update.message.reply_text("Enter the subject you wish to take the quiz on: ")
+    sub = await update.message.text
+    await update.message.reply_text("Enter the topic you wish to take a quiz on: ").upper()
+    topic = await update.message.text
+    await update.message.reply_text("Enter the level of the quiz [beginner/intermediate/advanced]: ").upper()
+    level = await update.message.text
     # Start the progress bar
     await update.message.reply_text("\nGenerating quiz questions, please wait...")
     with tqdm(total=100, desc="Generating", ncols=100) as pbar:
@@ -95,6 +98,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start))
 
     application.run_polling()
 
