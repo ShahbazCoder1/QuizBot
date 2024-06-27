@@ -23,7 +23,7 @@ print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our excit
 
 
 # Program Start here:
-GOOGLE_API_KEY='API_KEY'
+GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
@@ -40,7 +40,32 @@ with tqdm(total=100, desc="Generating", ncols=100) as pbar:
         pbar.update(20) #progress bar update by 20/100
         try:
             # Response here
-            response = model.generate_content(f"Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options along with alphabets assigned to them serially. Return only the dictonary code part.")
+            response = model.generate_content(f"""Generate a python dictionary which contains 10 {level} level questions on {topic} from {sub} along with four options as possible answers for each question. Show the four options along with alphabets assigned to them serially. Return only the dictionary code part.
+
+            The dictionary should have the following structure:
+
+            The main dictionary contains 10 key-value pairs, with keys 'Q1' through 'Q10'.
+            Each question is represented by a nested dictionary containing three key-value pairs:
+            1. 'question': A string containing the question text.
+            2. 'options': A nested dictionary with keys 'A', 'B', 'C', and 'D', each corresponding to a possible answer.
+            3. 'answer': A string containing the letter of the correct answer ('A', 'B', 'C', or 'D').
+
+            Example structure for one question:
+
+            {{
+                'Q1': {{
+                        'question': 'What is the question text?',
+                        'options': {{
+                            'A': 'First option',
+                            'B': 'Second option',
+                            'C': 'Third option',
+                            'D': 'Fourth option'
+                    }},
+                'answer': 'C'
+                }}
+            }}
+
+            Ensure that all questions are related to the specified topic and subject, and match the specified difficulty level. Return only the Python dictionary code, without any additional text or explanations.""")
             pbar.update(50) #progress bar update by 50/100
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -53,7 +78,7 @@ cor = 0
 
 quiz = eval(response.text.replace("```","").replace("python",""))
 
-print(quiz)
+#print(quiz)
 
 
 for key, value in quiz.items():
