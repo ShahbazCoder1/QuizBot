@@ -2,7 +2,7 @@ import google.generativeai as genai
 from tqdm import tqdm
 import time
 from typing import Final
-from telegram import Update
+from telegram import Update, Poll
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
 SUBJECT = None
@@ -56,7 +56,6 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     LEVEL = update.message.text
     await update.message.reply_text("\nGenerating quiz questions, please wait...")
     #await quizRun(update, context)
-
 
     # Program Start here:
     GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
@@ -115,11 +114,9 @@ async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 def main():
-    global STATE
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_input))
- 
     application.run_polling()
 
 if __name__ == '__main__':
