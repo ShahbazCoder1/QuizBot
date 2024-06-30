@@ -11,8 +11,8 @@ LEVEL = None
 STATE = None
 
 
-TOKEN: Final = 'TOKEN_HERE'
-BOT_USERNAME: Final = 'USER_NAME_HERE'
+TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
+BOT_USERNAME: Final = '@Quisly_Bot'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'''
@@ -58,7 +58,7 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     #await quizRun(update, context)
 
     # Program Start here:
-    GOOGLE_API_KEY='API_KEY'
+    GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
     genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
     model = genai.GenerativeModel('gemini-1.5-flash') #model setup
     response = model.generate_content(f"""Generate a python dictionary which contains 10 {LEVEL} level questions on {TOPIC} from {SUBJECT} along with four options as possible answers for each question. Show the four options along with alphabets assigned to them serially. Return only the dictionary code part.
@@ -91,13 +91,14 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     quiz = eval(response.text.replace("```","").replace("python","").replace(f"{TOPIC.lower()}_questions = ",''))
 
     #print(quiz)
-
+    C = 0
     for key, value in quiz.items():
         options = value['options']
         opt = list(options.values())
         ans = ['a', 'b', 'c', 'd']
         answer_index = ans.index(value['answer'].lower())
-        message = await update.effective_message.reply_poll(f"\nQ: {value['question']}", opt, type=Poll.QUIZ, correct_option_id= answer_index)
+        C +=1 
+        message = await update.effective_message.reply_poll(f"\nQ{C}: {value['question']}", opt, type=Poll.QUIZ, correct_option_id= answer_index)
 
 
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
