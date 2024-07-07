@@ -1,5 +1,4 @@
 import google.generativeai as genai
-from tqdm import tqdm
 import time
 from typing import Final
 from telegram import Update, Poll
@@ -10,6 +9,10 @@ TOPIC = None
 LEVEL = None
 STATE = None
 c_id = None
+quiz = None
+question_index = 0
+cor = 0
+incor = 0
 
 
 TOKEN: Final = '7068344943:AAEIFEtmH0N64n7ombEPfDcMpPCOYwN3WFU'
@@ -39,7 +42,7 @@ async def topi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     STATE = "level"
 
 async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    global SUBJECT, TOPIC, LEVEL, STATE, c_id
+    global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz
     LEVEL = update.message.text
     await update.message.reply_text("\nGenerating quiz questions, please wait...")
     #await quizRun(update, context)
@@ -74,17 +77,13 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     }}
 
     Ensure that all questions are related to the specified topic and subject, and match the specified difficulty level. Return only the Python dictionary code, without any additional text or explanations.""")
-    
+
     quiz = eval(response.text.replace("```","").replace("python","").replace(f"{TOPIC.lower()}_questions = ",''))
 
     #print(quiz)
     C = 0
     c_id = await get_chat_id(update, context)
-    q = 'What is the capital of Italy?'
-    answers = ['Rome', 'London', 'Amsterdam']
-    #send poll
-    message = await context.bot.send_poll(chat_id=c_id, question=q,options=answers, type=Poll.QUIZ, correct_option_id=0)
-
+    await loadQuiz(c_id,update, context)
 
 #obtain chat id 
 async def get_chat_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -98,9 +97,7 @@ async def get_chat_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     return chat_id
 
 async def poll_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  
-    global c_id
-    cor = 0
-    incor = 0
+    global c_id, cor, incor
     correct_answer = update.poll.correct_option_id
     option_1_text = update.poll.options[correct_answer].text
     answers = update.poll.options
@@ -111,23 +108,26 @@ async def poll_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
             break
     if option_1_text == ret:
         cor +=1
-        await context.bot.send_message(chat_id=c_id, text="Excellent performance🥳!")
         print("correct")
     else:
         incor +=1
-        await context.bot.send_message(chat_id=c_id, text="Incorrect")
         print("incorrect")
+    await loadQuiz(c_id,update, context)
 
-
-    '''for key, value in quiz.items():
+async def loadQuiz(c_id, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global quiz, question_index, cor, incor
+    question_index += 1
+    if question_index <= len(quiz):
+        question_key = f"Q{question_index}"
+        value = quiz[question_key]
         options = value['options']
         opt = list(options.values())
         ans = ['a', 'b', 'c', 'd']
         answer_index = ans.index(value['answer'].lower())
-        C +=1 
-        message = await update.effective_message.reply_poll(f"\nQ{C}: {value['question']}", opt, type=Poll.QUIZ, correct_option_id= answer_index)
+        message = await context.bot.send_poll(chat_id=c_id, question=f"\nQ{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
+    else:
+        await context.bot.send_message(chat_id=c_id, text=f"Quiz Completed! \nNumber of correct answers: {cor} \nNumber of incorrect answers: {incor}")
 
-'''
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global STATE
     if STATE == "subject":
