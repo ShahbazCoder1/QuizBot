@@ -60,11 +60,7 @@ async def topi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     STATE = "level"
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Here are the available commands:")
-    await update.message.reply_text("/start - Begin with your quiz")
-    await update.message.reply_text("/help - Show this help message")
-    await update.message.reply_text("/about - See a description of the bot")
-    await update.message.reply_text("/stop- Stop the quiz")
+    await update.message.reply_text("Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz")
 
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -77,8 +73,19 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global cor,incor,question_index,c_id
     question_index=len(quiz)+1
     await loadQuiz(c_id,update, context)
-    cor=0
-    incor=0
+    await resetAll()
+
+async def resetAll() -> None:
+    global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz, question_index, cor, incor
+    SUBJECT = None
+    TOPIC = None 
+    LEVEL = None
+    STATE = None
+    c_id = None
+    quiz = None
+    question_index = 0
+    cor = 0
+    incor = 0
 
 async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz
@@ -162,6 +169,7 @@ async def loadQuiz(c_id, update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         message = await context.bot.send_poll(chat_id=c_id, question=f"\n{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
     else:
         await context.bot.send_message(chat_id=c_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor}")
+        await resetAll()
 
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global STATE, SUBJECT, LEVEL
