@@ -61,9 +61,11 @@ async def topi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Here are the available commands:")
-    await update.message.reply_text("/start - Start the quiz")
+    await update.message.reply_text("/start - Begin with your quiz")
     await update.message.reply_text("/help - Show this help message")
-    await update.message.reply_text("/about - Learn about Quizly Quiz")
+    await update.message.reply_text("/about - See a description of the bot")
+    await update.message.reply_text("/stop- Stop the quiz")
+
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience.")
@@ -71,6 +73,12 @@ async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("DEVELOPER INFO: \nMD SHAHBAZ HASHMI ANSARI (https://github.com/ShahbazCoder1)\nVIDHI AGARWAL (https://github.com/Vidhi-28)")
     await update.message.reply_text("Source Code at: https://github.com/ShahbazCoder1/QuizBot")
 
+async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global cor,incor,question_index,c_id
+    question_index=len(quiz)+1
+    await loadQuiz(c_id,update, context)
+    cor=0
+    incor=0
 
 async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz
@@ -179,6 +187,8 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help))
     application.add_handler(CommandHandler("about", about))
+    application.add_handler(CommandHandler("stop", stop))
+
     application.add_handler(CallbackQueryHandler(handle_input))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(PollHandler(poll_handler))
