@@ -59,11 +59,6 @@ async def topi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Enter the level of the quiz: ", reply_markup=reply_markup)
     STATE = "level"
 
-async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz
-    c_id = await get_chat_id(update, context)
-    message = await context.bot.send_message(chat_id=c_id, text="Generating quiz questions, please wait...")
-
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Here are the available commands:")
     await update.message.reply_text("/start - Start the quiz")
@@ -78,6 +73,12 @@ async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Your score will be displayed after you finish the quiz.")
     await update.message.reply_text("DEVELOPER INFO: \nMD SHAHBAZ HASHMI ANSARI (https://github.com/ShahbazCoder1)\nVIDHI AGARWAL (https://github.com/Vidhi-28)")
     await update.message.reply_text("Source Code at: https://github.com/ShahbazCoder1/QuizBot")
+
+
+async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz
+    c_id = await get_chat_id(update, context)
+    message = await context.bot.send_message(chat_id=c_id, text="Generating quiz questions, please wait...")
     # Program Start here:
     GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
     genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
