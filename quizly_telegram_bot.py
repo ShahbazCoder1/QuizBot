@@ -64,9 +64,6 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("/start - Start the quiz")
     await update.message.reply_text("/help - Show this help message")
     await update.message.reply_text("/about - Learn about Quizly Quiz")
-    awa
-    await update.message.reply_text("/stop - Stop the quiz")
-
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience.")
