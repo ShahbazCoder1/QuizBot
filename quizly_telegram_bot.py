@@ -64,6 +64,17 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     c_id = await get_chat_id(update, context)
     message = await context.bot.send_message(chat_id=c_id, text="Generating quiz questions, please wait...")
 
+async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("Here are the available commands:")
+    await update.message.reply_text("/start - Start the quiz")
+    await update.message.reply_text("/help - Show this help message")
+    await update.message.reply_text("/about - Learn about Quizly Quiz")
+
+async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience.")
+    await update.message.reply_text("Your score will be displayed after you finish the quiz.")
+    await update.message.reply_text("DEVELOPER INFO: \nMD SHAHBAZ HASHMI ANSARI (https://github.com/ShahbazCoder1)\nVIDHI AGARWAL (https://github.com/Vidhi-28)")
+    await update.message.reply_text("Source Code at: https://github.com/ShahbazCoder1/QuizBot")
     # Program Start here:
     GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
     genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
@@ -165,6 +176,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("help", help))
+    application.add_handler(CommandHandler("about", about))
     application.add_handler(CallbackQueryHandler(handle_input))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(PollHandler(poll_handler))
