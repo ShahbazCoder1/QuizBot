@@ -1,8 +1,8 @@
 import google.generativeai as genai
 import time
 from typing import Final
-from telegram import Update, Poll
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, PollHandler, filters
+from telegram import Update, Poll, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, PollHandler, CallbackQueryHandler, filters
 
 SUBJECT = None
 TOPIC = None 
@@ -22,8 +22,20 @@ print("  ____          _ \n / __ \\        (_)\n| |  | | _   _  _  ____\n| |  | 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Get ready for Quizly Quiz!")
+    keyboard = [
+        ["Mathematics", "Physics"],
+        ["Chemistry", "Biology"],
+        ["Computer Science", "History"],
+        ["Geography", "Politics"],
+        ["English", "General Knowledge"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard,
+        resize_keyboard=True,
+        one_time_keyboard=False
+    )
 
-    await update.message.reply_text("Enter the subject you wish to take the quiz on: ")
+    await update.message.reply_text("Enter the subject you wish to take the quiz on: ", reply_markup=reply_markup)
     global STATE
     STATE = "subject"
 
@@ -38,14 +50,19 @@ async def topi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global TOPIC
     global STATE
     TOPIC = update.message.text
-    await update.message.reply_text("Enter the level of the quiz [beginner/intermediate/advanced]: ")
+    keyboard = [
+        [InlineKeyboardButton("Beginner", callback_data="Beginner")],
+        [InlineKeyboardButton("Intermediate", callback_data="Intermediate")],
+        [InlineKeyboardButton("Advanced", callback_data="Advanced")],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Enter the level of the quiz: ", reply_markup=reply_markup)
     STATE = "level"
 
 async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global SUBJECT, TOPIC, LEVEL, STATE, c_id, quiz
-    LEVEL = update.message.text
-    await update.message.reply_text("\nGenerating quiz questions, please wait...")
-    #await quizRun(update, context)
+    c_id = await get_chat_id(update, context)
+    message = await context.bot.send_message(chat_id=c_id, text="Generating quiz questions, please wait...")
 
     # Program Start here:
     GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
@@ -79,10 +96,8 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     Ensure that all questions are related to the specified topic and subject, and match the specified difficulty level. Return only the Python dictionary code, without any additional text or explanations.""")
 
     quiz = eval(response.text.replace("```","").replace("python","").replace(f"{TOPIC.lower()}_questions = ",''))
-
-    #print(quiz)
+    await message.edit_text("Let's Begin")
     C = 0
-    c_id = await get_chat_id(update, context)
     await loadQuiz(c_id,update, context)
 
 #obtain chat id 
@@ -124,26 +139,34 @@ async def loadQuiz(c_id, update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         opt = list(options.values())
         ans = ['a', 'b', 'c', 'd']
         answer_index = ans.index(value['answer'].lower())
-        message = await context.bot.send_poll(chat_id=c_id, question=f"\nQ{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
+        message = await context.bot.send_poll(chat_id=c_id, question=f"\n{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
     else:
-        await context.bot.send_message(chat_id=c_id, text=f"Quiz Completed! \nNumber of correct answers: {cor} \nNumber of incorrect answers: {incor}")
+        await context.bot.send_message(chat_id=c_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor}")
 
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global STATE, SUBJECT, LEVEL
+    query = update.callback_query
+    await query.answer()
+    if STATE == "level":
+        LEVEL = query.data
+        await leve(update, context)
+    else:
+        await query.message.reply_text("Invalid input. Please try again.")
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global STATE
     if STATE == "subject":
         await subj(update, context)
     elif STATE == "topic":
         await topi(update, context)
-    elif STATE == "level":
-        await leve(update, context)
     else:
-        await update.message.reply_text("Invalid input. Please try again.")
-
+        await update.message.reply_text("Please use the provided buttons to interact with the bot.")
 
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_input))
+    application.add_handler(CallbackQueryHandler(handle_input))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(PollHandler(poll_handler))
     application.run_polling()
 
