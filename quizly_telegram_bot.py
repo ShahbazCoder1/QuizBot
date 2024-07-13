@@ -64,10 +64,7 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience.")
-    await update.message.reply_text("Your score will be displayed after you finish the quiz.")
-    await update.message.reply_text("DEVELOPER INFO: \nMD SHAHBAZ HASHMI ANSARI (https://github.com/ShahbazCoder1)\nVIDHI AGARWAL (https://github.com/Vidhi-28)")
-    await update.message.reply_text("Source Code at: https://github.com/ShahbazCoder1/QuizBot")
+    await update.message.reply_text("You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\nYour score will be displayed after you finish the quiz. \n\nDEVELOPER INFO: \n-MD SHAHBAZ HASHMI ANSARI (https://github.com/ShahbazCoder1)\n-VIDHI AGARWAL (https://github.com/Vidhi-28) \n\nSource Code at: https://github.com/ShahbazCoder1/QuizBot")
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global cor,incor,question_index,c_id
@@ -196,7 +193,6 @@ def main():
     application.add_handler(CommandHandler("help", help))
     application.add_handler(CommandHandler("about", about))
     application.add_handler(CommandHandler("stop", stop))
-
     application.add_handler(CallbackQueryHandler(handle_input))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(PollHandler(poll_handler))
