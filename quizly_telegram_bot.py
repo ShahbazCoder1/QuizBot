@@ -21,31 +21,52 @@ async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def feedback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Enter your Feedback message: ")
-    
-    # Store the chat_id to use it later
     context.user_data['waiting_for_feedback'] = True
-    
+
 async def handle_feedback_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if context.user_data.get('waiting_for_feedback'):
+        chat = update.message.chat
+        user = update.message.from_user
+        date = update.message.date
+        name = chat.first_name
+        chat_id = chat.id
+        chat_type = chat.type
+        message_date = date.strftime("%Y-%m-%d %H:%M:%S")
+        timezone = date.tzinfo
+        is_bot = user.is_bot
+        
         from_email = 'quizlyfeedback@gmail.com'
         from_password = 'htlq kwaj wekx pvsl'
         msg = MIMEMultipart()
         msg['From'] = from_email
-        msg['To'] = "shahbazhashmi14a@gmail.com , shahbazhashmiansari@gmail.com"
+        msg['To'] = "shahbazhashmi14a@gmail.com , vidhiag28@gmail.com"
         msg['Subject'] = "Someone has given a feedback about Quizly Bot"
-        body = update.message.text
+        body = f"""
+        <html>
+        <body>
+            <p>Hi There,</p>
+            <p>Quizly has a new feedback:</p>
+            <blockquote>{update.message.text}</blockquote>
+            <p><strong>Sender Details:</strong></p>
+            <ul>
+                <li><strong>Name:</strong> {name}</li>
+                <li><strong>User ID:</strong> {chat_id}</li>
+                <li><strong>Chat Type:</strong> {chat_type}</li>
+                <li><strong>Date & Time Zone:</strong> {message_date} ({timezone})</li>
+                <li><strong>Is Bot:</strong> {is_bot}</li>
+            </ul>
+        </body>
+        </html>
+        """
         # Attach the message body
-        msg.attach(MIMEText(body, 'plain'))
-
+        msg.attach(MIMEText(body, 'html'))
         # Set up the SMTP server
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()  # Enable security
         server.login(from_email, from_password)
-
         # Send the email
         server.send_message(msg)
         server.quit()
-
         await update.message.reply_text("Thank you for your feedback!")
         context.user_data['waiting_for_feedback'] = False
     else:
@@ -63,10 +84,6 @@ async def resetAll(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     context.user_data['LEVEL'] = None
     context.user_data['STATE'] = None
     context.user_data['c_id'] = await get_chat_id(update, context)
-    context.user_data['quiz'] = None
-    context.user_data['question_index'] = 0
-    context.user_data['cor'] = 0
-    context.user_data['incor'] = 0
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await resetAll(update, context)
@@ -112,7 +129,7 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     GOOGLE_API_KEY='AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4'
     genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
     model = genai.GenerativeModel('gemini-1.5-flash') #model setup
-    response = model.generate_content(f"""Generate a python dictionary which contains 10 {LEVEL} level questions on {TOPIC} from {SUBJECT} along with four options as possible answers for each question. Show the four options along with alphabets assigned to them serially. Return only the dictionary code part.
+    response = model.generate_content(f"""Generate a python dictionary which contains 10 {LEVEL} level questions on {TOPIC} from {SUBJECT} along with four options as possible answers for each question. Show the four options along with alphabets assigned to them serially.
 
     The dictionary should have the following structure:
 
@@ -138,9 +155,28 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     }}
 
     Ensure that all questions are related to the specified topic and subject, and match the specified difficulty level. Return only the Python dictionary code, without any additional text or explanations.""")
-    context.user_data['quiz'] = eval(response.text.replace("```","").replace("python","").replace(f"{TOPIC.lower()}_questions = ",''))
+    quiz = eval(response.text.replace("```","").replace("python","").replace(f"{TOPIC.lower()}_questions = ",''))
     await message.edit_text("Let's Begin")
-    await loadQuiz(c_id,update, context)
+    #First Question
+    question_key = f"Q{1}"
+    value = quiz[question_key]
+    options = value['options']
+    opt = list(options.values())
+    ans = ['a', 'b', 'c', 'd']
+    answer_index = ans.index(value['answer'].lower())
+    message = await context.bot.send_poll(chat_id=c_id, question=f"Q{1}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
+    payload = {
+    message.poll.id: {
+        "chat_id": c_id, 
+        "message_id": message.message_id, 
+        "message": message, 
+        "cor_count": 0, 
+        "incor_count": 0,
+        "quiz": quiz,
+        "question_index": 1
+      }
+    }
+    context.bot_data.update(payload)
 
 #obtain chat id 
 async def get_chat_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -151,46 +187,39 @@ async def get_chat_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
         chat_id = update.callback_query.message.chat.id
     elif update.poll is not None:
         chat_id = context.bot_data[update.poll.id]
-    return chat_id
+    return chat_id 
 
 async def poll_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        # Check if context.user_data exists
-    if context.user_data is None:
-        print("Warning: context.user_data is None")
-        return  # Exit the function if there's no user data
-
-    c_id = context.user_data.get('c_id')
-    
-    # If c_id is not found in user_data, try to get it from the update
-    if c_id is None:
-        c_id = await get_chat_id(update, context)
-        if c_id == -1:
-            print("Error: Unable to determine chat_id")
-            return 
-            
+    poll_id = update.poll.id
+    chat_data = context.bot_data.get(poll_id)
+    chat_id = chat_data.get('chat_id')
     correct_answer = update.poll.correct_option_id
     option_1_text = update.poll.options[correct_answer].text
     answers = update.poll.options
-    await ansCheck(answers,option_1_text, context)
     ret = ""
     for answer in answers:
-        if answer.voter_count ==1:
+        if answer.voter_count == 1:
             ret = answer.text
             break
-    if option_1_text == ret:
-        context.user_data['cor'] += 1 
-        print("correct")
-    else:
-        context.user_data['incor'] += 1 
-        print("incorrect")
-    await loadQuiz(c_id,update, context)
 
-async def loadQuiz(c_id, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    quiz = context.user_data.get('quiz') 
-    cor = context.user_data.get('cor')
-    incor = context.user_data.get('incor')
-    question_index = context.user_data.get('question_index')
-    question_index += 1
+    if option_1_text == ret:
+        chat_data['cor_count'] = chat_data.get('cor_count') + 1
+        #print("correct")
+    else:
+        chat_data['incor_count'] = chat_data.get('incor_count') + 1
+        #print("incorrect")
+    await loadQuiz(update, context)
+
+async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    poll_id = update.poll.id
+    chat_data = context.bot_data.get(poll_id)
+    print(chat_data)
+    chat_id = chat_data.get('chat_id')
+    quiz = chat_data.get('quiz') 
+    cor = chat_data.get('cor_count')
+    incor = chat_data.get('incor_count')
+    question_index = chat_data.get('question_index') + 1
+    chat_data['question_index'] = question_index
     if question_index <= len(quiz):
         question_key = f"Q{question_index}"
         value = quiz[question_key]
@@ -198,10 +227,21 @@ async def loadQuiz(c_id, update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         opt = list(options.values())
         ans = ['a', 'b', 'c', 'd']
         answer_index = ans.index(value['answer'].lower())
-        message = await context.bot.send_poll(chat_id=c_id, question=f"\n{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
+        message = await context.bot.send_poll(chat_id=chat_id, question=f"\n{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
+        payload = {
+        message.poll.id: {
+            "chat_id": chat_id, 
+            "message_id": message.message_id, 
+            "message": message, 
+            "cor_count": cor, 
+            "incor_count": incor,
+            "quiz": quiz,
+            "question_index": question_index
+        }
+        }
+        context.bot_data.update(payload)
     else:
-        await context.bot.send_message(chat_id=c_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor}")
-        await resetAll(update, context)
+        await context.bot.send_message(chat_id=chat_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor}")
 
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     STATE = context.user_data.get('STATE')
