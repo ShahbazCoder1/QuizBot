@@ -1,4 +1,5 @@
 import google.generativeai as genai
+import ast
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -17,7 +18,8 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz")
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\nYour score will be displayed after you finish the quiz. \n\nDEVELOPER INFO: \n-MD SHAHBAZ HASHMI ANSARI (https://github.com/ShahbazCoder1)\n-VIDHI AGARWAL (https://github.com/Vidhi-28) \n\nSource Code at: https://github.com/ShahbazCoder1/QuizBot")
+    await update.message.reply_text("📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz. \n\n💻 Source Code: https://github.com/ShahbazCoder1/QuizBot \n\n👨‍💻 𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥 𝗜𝗡𝗙𝗢: \n\n- MD SHAHBAZ HASHMI ANSARI \n- VIDHI AGARWAL \n\n📢 Note: This project is developed as an open source project. \n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳")
+
 
 async def feedback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Enter your Feedback message: ")
@@ -73,10 +75,14 @@ async def handle_feedback_message(update: Update, context: ContextTypes.DEFAULT_
         await handle_message(update, context)
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    question_index = context.user_data.get('question_index')
-    c_id = context.user_data.get('c_id')
-    question_index=len(quiz)+1
-    await loadQuiz(c_id,update, context)
+    chat_id = await get_chat_id(update, context)
+    for poll_id, data in context.bot_data.items():
+        print(poll_id, '\n\n',data)
+        if data.get('chat_id') == chat_id:
+            await loadQuiz(update, context, stop=True, poll_id=poll_id)
+            break
+    else:
+        await update.message.reply_text("No active quiz to stop.")
 
 async def resetAll(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     context.user_data['SUBJECT'] = None
@@ -155,7 +161,8 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     }}
 
     Ensure that all questions are related to the specified topic and subject, and match the specified difficulty level. Return only the Python dictionary code, without any additional text or explanations.""")
-    quiz = eval(response.text.replace("```","").replace("python","").replace(f"{TOPIC.lower()}_questions = ",''))
+    response_text = response.text.replace("```", "").replace("python", "").replace(f"{TOPIC.lower()}_questions = ", "")
+    quiz = ast.literal_eval(response_text)
     await message.edit_text("Let's Begin")
     #First Question
     question_key = f"Q{1}"
@@ -204,30 +211,35 @@ async def poll_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
     if option_1_text == ret:
         chat_data['cor_count'] = chat_data.get('cor_count') + 1
-        #print("correct")
+        print('\n\n',chat_data.get('cor_count'))
     else:
         chat_data['incor_count'] = chat_data.get('incor_count') + 1
-        #print("incorrect")
-    await loadQuiz(update, context)
+        print('\n\n' , chat_data.get('incor_count'))
+    await loadQuiz(update, context,poll_id=poll_id)
 
-async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    poll_id = update.poll.id
+async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE, stop = False, poll_id = None) -> None:
+    print('\n\npoll is ',poll_id)
     chat_data = context.bot_data.get(poll_id)
-    print(chat_data)
+    #print(chat_data)
     chat_id = chat_data.get('chat_id')
     quiz = chat_data.get('quiz') 
     cor = chat_data.get('cor_count')
     incor = chat_data.get('incor_count')
+    print(f"\n\ncorrect {cor} \n\nIncorrect {incor}")
     question_index = chat_data.get('question_index') + 1
     chat_data['question_index'] = question_index
+
+    if stop: question_index = len(quiz)+1
+
     if question_index <= len(quiz):
+        #if stop: break
         question_key = f"Q{question_index}"
         value = quiz[question_key]
         options = value['options']
         opt = list(options.values())
         ans = ['a', 'b', 'c', 'd']
         answer_index = ans.index(value['answer'].lower())
-        message = await context.bot.send_poll(chat_id=chat_id, question=f"\n{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
+        message = await context.bot.send_poll(chat_id=chat_id, question=f"\nQ{question_index}: {value['question']}",options=opt, type=Poll.QUIZ, correct_option_id=answer_index)
         payload = {
         message.poll.id: {
             "chat_id": chat_id, 
@@ -242,6 +254,7 @@ async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         context.bot_data.update(payload)
     else:
         await context.bot.send_message(chat_id=chat_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor}")
+        
 
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     STATE = context.user_data.get('STATE')
