@@ -18,12 +18,22 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz")
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz. \n\n💻 Source Code: https://github.com/ShahbazCoder1/QuizBot \n\n👨‍💻 𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥 𝗜𝗡𝗙𝗢: \n\n- MD SHAHBAZ HASHMI ANSARI \n- VIDHI AGARWAL \n\n📢 Note: This project is developed as an open source project. \n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳")
+    keyboard = [
+        [InlineKeyboardButton("GitHub", url="https://github.com/ShahbazCoder1/QuizBot ")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz.\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳", reply_markup=reply_markup)
 
+async def set_language(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("Coming Soon!")
 
 async def feedback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Enter your Feedback message: ")
+    await update.message.reply_text("Enter your Feedback message: \n\nIf you don't want to send Feedback, type /cancel")
     context.user_data['waiting_for_feedback'] = True
+
+async def cancel_feedback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("Feedback canceled.")
+    context.user_data['waiting_for_feedback'] = False
 
 async def handle_feedback_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if context.user_data.get('waiting_for_feedback'):
@@ -282,6 +292,8 @@ def main():
     application.add_handler(CommandHandler("about", about))
     application.add_handler(CommandHandler("stop", stop))
     application.add_handler(CommandHandler("feedback", feedback))
+    application.add_handler(CommandHandler("cancel", cancel_feedback))
+    application.add_handler(CommandHandler("language", set_language))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_feedback_message))
     application.add_handler(CallbackQueryHandler(handle_input))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
