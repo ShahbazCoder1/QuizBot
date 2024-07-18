@@ -1,6 +1,6 @@
-# QuizBot
+# Quizly Bot
 
-This Python project is a simple quiz bot that allows users to take quizzes on various topics.
+Quizly Bot is a Telegram bot that allows users to take quizzes on various subjects and topics with adjustable difficulty levels.
 
 ```bash
   ____          _ 
@@ -19,26 +19,61 @@ This Python project is a simple quiz bot that allows users to take quizzes on va
 
 ## Features
 
-* Users can choose from a list of topics to take a quiz on.
-* Each quiz consists of multiple-choice questions.
-* Users receive feedback on their answers and can see their score at the end of the quiz.
+- Multiple subjects to choose from (Mathematics, Physics, Chemistry, Biology, Computer Science, History, Geography, Politics, English, General Knowledge)
+- User-defined topics within each subject
+- Three difficulty levels: Beginner, Intermediate, and Advanced
+- 10-question quizzes generated dynamically using Google's Generative AI
+- Score tracking and display
+- Feedback submission feature
 
-## Getting Started
+## Commands
 
-To use the QuizBot, simply run the `main.py` file. The bot will then prompt you to select a topic and answer a series of questions.
+- `/start` - Begin a new quiz
+- `/help` - Show available commands
+- `/about` - Display information about the bot
+- `/stop` - Stop the current quiz
+- `/feedback` - Submit feedback about the bot
 
-## Usage
+## Technologies Used
 
-1. Run the `main.py` file.
-2. Select a topic from the list.
-3. Answer the questions to the best of your ability.
-4. Receive feedback on your answers and see your score.
+- Python 3
+- python-telegram-bot
+- Google Generative AI (Gemini 1.5 Flash model)
+- smtplib for email notifications
 
-## Contributers
+## Setup
+
+1. Clone the repository
+2. Install the required dependencies:
+`pip install python-telegram-bot google-generativeai`
+3. Set up your Telegram Bot Token and Google API Key in the code
+4. Run the bot:
+`python quizly_telegram_bot.py`
+
+## How It Works
+
+1. The bot presents a list of subjects to choose from
+2. Users enter their desired topic within the chosen subject
+3. Users select the difficulty level
+4. The bot generates a 10-question quiz using Google's Generative AI
+5. Questions are presented one at a time as Telegram polls
+6. The bot tracks correct and incorrect answers
+7. After completing the quiz, users receive their final score
+
+## Feedback
+
+Users can submit feedback using the `/feedback` command. Feedback is sent via email to the developers.
+
+## Developers
 
 - **[Md Shahbaz Hashmi Ansari](https://github.com/ShahbazCoder1)**
 - **[Vidhi Agrawal](https://github.com/Vidhi-28)**
 
 ## License
 
-The QuizBot project is licensed under the GPLv3 License. See the [LICENSE](LICENSE) file for more information.
+This project is open source and available under the [GPL-3.0 License](LICENSE).
+
+## Acknowledgements
+
+- This project uses the [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) library
+- Quiz questions are generated using [Google's Generative AI](https://developers.generativeai.google/)
