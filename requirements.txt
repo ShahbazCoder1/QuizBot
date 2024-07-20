@@ -8,3 +8,5 @@ google-api-python-client
 tqdm
 python-telegram-bot
 python-telegram-bot==13.11 #when you are using python3
+'''Uncomment below if any error occures in Telegram Bot'''
+#pip install python-telegram-bot --upgrade 
