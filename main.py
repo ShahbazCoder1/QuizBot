@@ -21,7 +21,6 @@ print( '''
 #intructions here:
 print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
 
-
 # Program Start here:
 GOOGLE_API_KEY='API_KEY'
 
