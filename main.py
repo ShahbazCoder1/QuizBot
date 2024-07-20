@@ -77,9 +77,6 @@ cor = 0
 
 quiz = eval(response.text.replace("```","").replace("python",""))
 
-#print(quiz)
-
-
 for key, value in quiz.items():
     print(f"\nQ: {value['question']}")
     options = value['options']
