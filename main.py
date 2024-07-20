@@ -1,3 +1,11 @@
+'''
+Title: Quiz Bot
+Code Written by: 𝗠𝗱 𝗦𝗵𝗮𝗵𝗯𝗮𝘇 𝗛𝗮𝘀𝗵𝗺𝗶 𝗔𝗻𝘀𝗮𝗿𝗶, 𝗩𝗶𝗱𝗵𝗶 𝗔𝗴𝗿𝗮𝘄𝗮𝗹
+programing languages: Python
+Code Version: V1.0
+Copyright ©: Open-source
+'''
+
 import google.generativeai as genai
 from tqdm import tqdm
 import time
