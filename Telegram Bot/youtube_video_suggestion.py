@@ -1,4 +1,11 @@
-import os
+'''
+Title: YouTube Video Recommendation
+Code Written by: 𝗠𝗱 𝗦𝗵𝗮𝗵𝗯𝗮𝘇 𝗛𝗮𝘀𝗵𝗺𝗶 𝗔𝗻𝘀𝗮𝗿𝗶
+programing languages: Python
+Code Version: V1.0
+Copyright ©: Open-source
+'''
+
 from googleapiclient.discovery import build
 from telegram import InlineKeyboardButton
 
@@ -15,31 +22,11 @@ def get_youtube_video_recommendation(topic, api_key, max_results=3):
     )
     response = request.execute()
     
-    videos = []
-    
-    for item in response['items']:
-        video_id = item['id']['videoId']
-        video_title = item['snippet']['title']
-        video_url = f'https://www.youtube.com/watch?v={video_id}'
-        videos.append([InlineKeyboardButton(f"{video_title}", url=f"{video_url}")])
-        
-    return videos
-
-# Function to evaluate quiz score and suggest videos if needed
-def evaluate_quiz_score(score, topic, api_key):
-    if score < 5:
-        print(f"Your score is {score}. Here are some recommended videos to improve your knowledge on {topic}:")
-        videos = get_youtube_video_recommendation(topic, api_key)
-        for title, url in videos:
-            print(f"{title}: {url}")
-    else:
-        print(f"Your score is {score}. Great job!")
-
-# Example usage
-if __name__ == "__main__":
-    # Example score and topic
-    score = 3  # User's quiz score
-    topic = "Python Programming"  # Topic of the quiz
-    api_key = 'Api_Key'  # Replace with your YouTube Data API key
-    
-    evaluate_quiz_score(score, topic, api_key)
+    # Use list comprehension for efficiency
+    return [
+        [InlineKeyboardButton(
+            f"▶️ {item['snippet']['title'][:20] + '...' if len(item['snippet']['title']) > 10 else item['snippet']['title']}",
+            url=f'https://www.youtube.com/watch?v={item["id"]["videoId"]}'
+        )]
+        for item in response['items']
+    ]
