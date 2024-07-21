@@ -13,8 +13,9 @@ from  youtube_video_suggestion import get_youtube_video_recommendation
 
 TOKEN: Final = os.getenv('token')
 BOT_USERNAME: Final = os.getenv('username')
-GOOGLE_API_KEY=os.getenv('api_key')
-youtube_api_key = os.getenv('youtube_api')
+GOOGLE_API_KEY: Final = os.getenv('api_key')
+youtube_api_key: Final = os.getenv('youtube_api')
+user_record = {}
 
 print("  ____          _ \n / __ \\        (_)\n| |  | | _   _  _  ____\n| |  | || | | || ||_  /\n| |__| || |_| || | / /_\n \\___\\_\\ \\__,_||_|/____|\n ____          _   \n|  _ \\        | |  \n| |_) |  ___  | |_ \n|  _ <  / _ \\ | __|\n| |_) || (_) || |_ \n|____/  \\___/  \\__|")
 
@@ -90,20 +91,33 @@ async def handle_feedback_message(update: Update, context: ContextTypes.DEFAULT_
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = await get_chat_id(update, context)
-    for poll_id, data in context.bot_data.items():
-        #print(poll_id, '\n\n',data)
-        if data.get('chat_id') == chat_id:
-            await loadQuiz(update, context, stop=True, poll_id=poll_id)
-            break
+    user_id = str(chat_id)
+    user_data = user_record.get(user_id)
+    if user_data:
+        poll_id = user_data.get('poll_id')
+        if poll_id != -1:
+            await loadQuiz(update, context, stop=True, poll_id=poll_id, chat_id=chat_id)
+            user_record[user_id]['poll_id'] = -1
+        else:
+            await update.message.reply_text("No active quiz to stop.")
     else:
-        await update.message.reply_text("No active quiz to stop.")
+        await update.message.reply_text("No active quiz session found.")
 
 async def resetAll(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global user_record
     context.user_data['SUBJECT'] = None
     context.user_data['TOPIC'] = None 
     context.user_data['LEVEL'] = None
     context.user_data['STATE'] = None
     context.user_data['c_id'] = await get_chat_id(update, context)
+    print(user_record)
+    user_id = str(context.user_data.get('c_id'))
+    user_record[user_id] = {
+        "cor": 0,
+        "icor": 0,
+        "poll_id": -1,
+        "topic": None
+    }
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await resetAll(update, context)
@@ -212,9 +226,11 @@ async def get_chat_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     return chat_id 
 
 async def poll_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global user_record
     poll_id = update.poll.id
     chat_data = context.bot_data.get(poll_id)
     chat_id = chat_data.get('chat_id')
+    user_id = str(chat_id)
     correct_answer = update.poll.correct_option_id
     option_1_text = update.poll.options[correct_answer].text
     answers = update.poll.options
@@ -230,22 +246,30 @@ async def poll_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     else:
         chat_data['incor_count'] = chat_data.get('incor_count') + 1
         #print('\n\n' , chat_data.get('incor_count'))
-    await loadQuiz(update, context,poll_id=poll_id)
 
-async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE, stop = False, poll_id = None) -> None:
-    #print('\n\npoll is ',poll_id)
+    user_record[user_id].update( {
+            "cor": chat_data.get('cor_count'),
+            "icor": chat_data.get('incor_count'),
+            "poll_id": poll_id,
+            "topic": chat_data.get('topic')
+        })
+    await loadQuiz(update, context,poll_id=poll_id,chat_id=chat_id)
+
+async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE, stop = False, poll_id = None,chat_id=None) -> None:
+    global user_record
+    #data are fetched from context
     chat_data = context.bot_data.get(poll_id)
-    #print(chat_data)
-    chat_id = chat_data.get('chat_id')
     quiz = chat_data.get('quiz') 
-    TOPIC = chat_data.get('topic')
-    cor = chat_data.get('cor_count')
-    incor = chat_data.get('incor_count')
-    print(f"\n\ncorrect {cor} \n\nIncorrect {incor}")
     question_index = chat_data.get('question_index') + 1
     chat_data['question_index'] = question_index
-
-    if stop: question_index = len(quiz)+1
+    #Now data are fetched from user_record
+    user_id = str(chat_id)
+    data_dict = user_record.get(user_id)
+    cor = data_dict.get('cor')
+    incor = data_dict.get('icor')
+    Topic = data_dict.get('topic')
+    
+    if stop: question_index = len(quiz)+1 #stop run
 
     if question_index <= len(quiz):
         #if stop: break
@@ -265,21 +289,22 @@ async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE, stop = Fa
             "incor_count": incor,
             "quiz": quiz,
             "question_index": question_index,
-            "topic": TOPIC
+            "topic": chat_data.get('topic')
         }
         }
         context.bot_data.update(payload)
     else:
         if cor <= 5:
             videos =None
+            nested_dict = user_record.get(chat_id)
             while videos is None:
                 try:
-                    videos = get_youtube_video_recommendation(TOPIC, youtube_api_key, max_results=3)
+                    videos = get_youtube_video_recommendation(Topic, youtube_api_key, max_results=3)
                 except Exception as e:
                     print(f"An error occurred: {e}")
                 finally:
                     reply_markup = InlineKeyboardMarkup(videos)
-                    await context.bot.send_message(chat_id=chat_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor} \n\nHere are some recommended videos to improve your knowledge on {TOPIC}:", reply_markup=reply_markup)
+                    await context.bot.send_message(chat_id=chat_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor} \n\nHere are some recommended videos to improve your knowledge on {Topic}:", reply_markup=reply_markup)
         else:
             await context.bot.send_message(chat_id=chat_id, text=f"Quiz Completed.\nNumber of correct answers: {cor} \nNumber of incorrect answers:{incor}")
 
