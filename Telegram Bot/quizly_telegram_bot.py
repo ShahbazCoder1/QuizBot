@@ -2,7 +2,8 @@
 Title: Quizly - Telegram AI Quiz Bot
 Code Written by: 𝗠𝗱 𝗦𝗵𝗮𝗵𝗯𝗮𝘇 𝗛𝗮𝘀𝗵𝗺𝗶 𝗔𝗻𝘀𝗮𝗿𝗶, 𝗩𝗶𝗱𝗵𝗶 𝗔𝗴𝗿𝗮𝘄𝗮𝗹
 programing languages: Python
-Description: We have modified the main.py into a Telegram Bot.
+Description: This code creates a Telegram bot called Quizly that lets you play quizzes, get help, and even give feedback! 
+It's like having a friendly quizmaster right in your Telegram chats. We have modified the main.py into a Telegram Bot.
 Code Version: V1.0
 Copyright ©: Open-source
 '''
@@ -10,6 +11,7 @@ Copyright ©: Open-source
 import google.generativeai as genai
 import ast
 import os
+import time
 from typing import Final
 from telegram import Update, Poll, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, PollHandler, CallbackQueryHandler, filters
@@ -33,7 +35,7 @@ async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         [InlineKeyboardButton("GitHub", url="https://github.com/ShahbazCoder1/QuizBot ")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz.\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳", reply_markup=reply_markup)
+    await update.message.reply_text("📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz.\n\nNOTE: This quiz is created with AI, and while we strive for accuracy, there's always a chance for a mistake.\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳", reply_markup=reply_markup)
 
 async def set_language(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Coming Soon!")
@@ -161,7 +163,8 @@ async def leve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     response = model.generate_content(prompt)
     response_text = response.text.strip('`python').strip()
     quiz = ast.literal_eval(response_text)
-
+    await message.edit_text("Generating quiz questions, please wait... \n\n𝐍𝐨𝐭𝐞: 𝐓𝐡𝐢𝐬 𝐪𝐮𝐢𝐳 𝐪𝐮𝐞𝐬𝐭𝐢𝐨𝐧𝐬 𝐢𝐬 𝐜𝐫𝐞𝐚𝐭𝐞𝐝 𝐰𝐢𝐭𝐡 𝐀𝐈, 𝐚𝐧𝐝 𝐰𝐡𝐢𝐥𝐞 𝐰𝐞 𝐬𝐭𝐫𝐢𝐯𝐞 𝐟𝐨𝐫 𝐚𝐜𝐜𝐮𝐫𝐚𝐜𝐲, 𝐭𝐡𝐞𝐫𝐞'𝐬 𝐚𝐥𝐰𝐚𝐲𝐬 𝐚 𝐜𝐡𝐚𝐧𝐜𝐞 𝐟𝐨𝐫 𝐚 𝐦𝐢𝐬𝐭𝐚𝐤𝐞.")
+    time.sleep(3)
     await message.edit_text("Let's Begin")
 
     # First Question
