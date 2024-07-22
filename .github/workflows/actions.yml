@@ -26,11 +26,11 @@ jobs:
 
       - name: Run Telegram Bot
         env:
-          TOKEN: ${{ secrets.token }}
-          USERNAME: ${{ secrets.username }}
-          API_KEY: ${{ secrets.api_key }}
-          YOUTUBE_API: ${{ secrets.youtube_api }}
-          SEND_EMAIL: ${{ secrets.send_email }}
-          PASSWORD: ${{ secrets.password }}
-          RECEIVER_EMAIL: ${{ secrets.receiver_email }}
+          TOKEN: ${{ secrets.TOKEN }}
+          USERNAME: ${{ secrets.USERNAME }}
+          API_KEY: ${{ secrets.API_KEY }}
+          YOUTUBE_API: ${{ secrets.YOUTUBE_API }}
+          SEND_EMAIL: ${{ secrets.SEND_EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
         run: python "Telegram Bot/quizly_telegram_bot.py"

@@ -19,10 +19,10 @@ from youtube_video_suggestion import get_youtube_video_recommendation
 from feedback_email import send_feedback_email
 
 
-TOKEN: Final = os.getenv('token')
-BOT_USERNAME: Final = os.getenv('username')
-GOOGLE_API_KEY: Final = os.getenv('api_key')
-youtube_api_key: Final = os.getenv('youtube_api')
+TOKEN: Final = os.getenv('TOKEN')
+BOT_USERNAME: Final = os.getenv('USERNAME')
+GOOGLE_API_KEY: Final = os.getenv('API_KEY')
+youtube_api_key: Final = os.getenv('YOUTUBE_API')
 user_record = {}
 
 print("  ____          _ \n / __ \\        (_)\n| |  | | _   _  _  ____\n| |  | || | | || ||_  /\n| |__| || |_| || | / /_\n \\___\\_\\ \\__,_||_|/____|\n ____          _   \n|  _ \\        | |  \n| |_) |  ___  | |_ \n|  _ <  / _ \\ | __|\n| |_) || (_) || |_ \n|____/  \\___/  \\__|")
