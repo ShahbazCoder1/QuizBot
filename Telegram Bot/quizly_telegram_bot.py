@@ -26,7 +26,7 @@ user_record = {}
 print("  ____          _ \n / __ \\        (_)\n| |  | | _   _  _  ____\n| |  | || | | || ||_  /\n| |__| || |_| || | / /_\n \\___\\_\\ \\__,_||_|/____|\n ____          _   \n|  _ \\        | |  \n| |_) |  ___  | |_ \n|  _ <  / _ \\ | __|\n| |_) || (_) || |_ \n|____/  \\___/  \\__|")
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz")
+    await update.message.reply_text("Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz \n/feedback - Send feedback \n/language - Set the bot's language (Coming Soon!)")
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
@@ -69,8 +69,12 @@ async def handle_feedback_message(update: Update, context: ContextTypes.DEFAULT_
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = await get_chat_id(update, context)
     user_data = user_record.get(str(chat_id))
-    poll_id = user_data.get('poll_id')
-    
+    try:
+        poll_id = user_data.get('poll_id')
+    except Exception as e:
+        await update.message.reply_text("No active quiz to stop.")
+        return
+
     if poll_id != -1:
         await loadQuiz(update, context, stop=True, poll_id=poll_id, chat_id=chat_id)
         user_record[str(chat_id)]['poll_id'] = -1
@@ -105,7 +109,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         ["Geography", "Politics"],
         ["English", "General Knowledge"]
     ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=False)
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True)
     
     await update.message.reply_text("Get ready for Quizly Quiz!")
     await update.message.reply_text("Enter the subject you wish to take the quiz on: ", reply_markup=reply_markup)
@@ -264,7 +268,7 @@ async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE, stop=Fals
         incor = user_data.get('icor')
         topic = user_data.get('topic')
         
-        completion_message = f"Quiz Completed.\nNumber of correct answers: {cor}\nNumber of incorrect answers: {incor}"
+        completion_message = f"Congratulations! You have completed the quiz on {topic}\n\n🎯 𝗬𝗼𝘂𝗿 𝘀𝗰𝗼𝗿𝗲:\n\n✅ Correct answers: {cor}\n❌ Incorrect answers: {incor}"
         
         if cor <= 5:
             try:
@@ -276,6 +280,7 @@ async def loadQuiz(update: Update, context: ContextTypes.DEFAULT_TYPE, stop=Fals
                 print(f"An error occurred while fetching video recommendations: {e}")
                 await context.bot.send_message(chat_id=chat_id, text=completion_message)
         else:
+            completion_message += f"\n\nGreat job! Your performance in the quiz on {topic} is outstanding! 🌟"
             await context.bot.send_message(chat_id=chat_id, text=completion_message)
 
 async def handle_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
