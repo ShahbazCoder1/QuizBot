@@ -2,6 +2,7 @@
 Title: Feedback email with smtplib
 Code Written by: 𝗠𝗱 𝗦𝗵𝗮𝗵𝗯𝗮𝘇 𝗛𝗮𝘀𝗵𝗺𝗶 𝗔𝗻𝘀𝗮𝗿𝗶
 programing languages: Python
+Description: This function is used to send feedback emails using smtplib.
 Code Version: V1.0
 Copyright ©: Open-source
 '''
