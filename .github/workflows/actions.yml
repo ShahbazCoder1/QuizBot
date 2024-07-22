@@ -1,0 +1,37 @@
+name: Quizly Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.8' # install the python version needed
+          
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install python-telegram-bot --upgrade
+          
+      - name: Run Telegram Bot # run main.py
+        env:
+          token: ${{ secrets.token }}
+          username: ${{ secrets.username }}
+          api_key: ${{ secrets.api_key }}
+          youtube_api: ${{ secrets.youtube_api }}
+          send_email: ${{ secrets.send_email }}
+          password: ${{ secrets.password }}
+          receiver_email: ${{ secrets.receiver_email }}
+        run: python "Telegram Bot/quizly_telegram_bot.py"
