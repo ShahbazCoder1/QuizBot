@@ -3,6 +3,7 @@ pip
 autopep8
 
 # App
+flask
 google-generativeai
 google-api-python-client
 tqdm
