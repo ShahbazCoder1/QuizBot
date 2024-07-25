@@ -14,9 +14,9 @@ import pytz
 import os
 
 def send_feedback_email(feedback_data):
-    from_email = os.getenv('SEND_EMAIL')
-    from_password = os.getenv('PASSWORD')
-    to_email = os.getenv('RECEIVER_EMAIL')
+    from_email = os.getenv('$SEND_EMAIL')
+    from_password = os.getenv('$PASSWORD')
+    to_email = os.getenv('$RECEIVER_EMAIL')
     utc_date = feedback_data['date']
     ist_timezone = pytz.timezone('Asia/Kolkata')
     ist_date = utc_date.astimezone(ist_timezone)

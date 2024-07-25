@@ -15,14 +15,14 @@ import time
 from typing import Final
 from telegram import Update, Poll, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, PollHandler, CallbackQueryHandler, filters
-from youtube_video_suggestion import get_youtube_video_recommendation
-from feedback_email import send_feedback_email
+from TelegramBot.youtube_video_suggestion import get_youtube_video_recommendation
+from TelegramBot.feedback_email import send_feedback_email
 
 
-TOKEN: Final = os.getenv('TOKEN')
-BOT_USERNAME: Final = os.getenv('USERNAME')
-GOOGLE_API_KEY: Final = os.getenv('API_KEY')
-youtube_api_key: Final = os.getenv('YOUTUBE_API')
+TOKEN: Final = os.getenv('$TOKEN')
+BOT_USERNAME: Final = os.getenv('$USERNAME')
+GOOGLE_API_KEY: Final = os.getenv('$API_KEY')
+youtube_api_key: Final = os.getenv('$YOUTUBE_API')
 user_record = {}
 
 print("  ____          _ \n / __ \\        (_)\n| |  | | _   _  _  ____\n| |  | || | | || ||_  /\n| |__| || |_| || | / /_\n \\___\\_\\ \\__,_||_|/____|\n ____          _   \n|  _ \\        | |  \n| |_) |  ___  | |_ \n|  _ <  / _ \\ | __|\n| |_) || (_) || |_ \n|____/  \\___/  \\__|")
@@ -318,7 +318,9 @@ def main():
     application.add_handler(CallbackQueryHandler(handle_input))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(PollHandler(poll_handler))
-    application.run_polling()
+    # For Flask integration, just initialize but don't run polling
+    # application.run_polling()
+    return "Bot initialized successfully"
 
 if __name__ == '__main__':
     main()
