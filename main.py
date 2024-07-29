@@ -34,7 +34,7 @@ print( '''
 print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
 
 # Program Start here:
-GOOGLE_API_KEY=os.getenv('$API_KEY')
+GOOGLE_API_KEY=os.getenv('AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4')
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 
