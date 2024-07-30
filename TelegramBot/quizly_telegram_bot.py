@@ -14,8 +14,8 @@ import time
 from typing import Final
 from telegram import Update, Poll, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, PollHandler, CallbackQueryHandler, filters
-from TelegramBot.youtube_video_suggestion import get_youtube_video_recommendation
-from TelegramBot.feedback_email import send_feedback_email
+from youtube_video_suggestion import get_youtube_video_recommendation
+from feedback_email import send_feedback_email
 
 
 TOKEN: Final = os.getenv('TOKEN')
@@ -24,7 +24,10 @@ GOOGLE_API_KEY: Final = os.getenv('API_KEY')
 youtube_api_key: Final = os.getenv('YOUTUBE_API')
 user_record = {}
 
-print("  ____          _ \n / __ \\        (_)\n| |  | | _   _  _  ____\n| |  | || | | || ||_  /\n| |__| || |_| || | / /_\n \\___\\_\\ \\__,_||_|/____|\n ____          _   \n|  _ \\        | |  \n| |_) |  ___  | |_ \n|  _ <  / _ \\ | __|\n| |_) || (_) || |_ \n|____/  \\___/  \\__|")
+print("\033[38;2;255;153;51m  ****             * \n * ** *            \n\033[0m"
+  "* *  * *  *** *** *** *****  *** ***   ***\n* *  * *  * * * * * * *_  *  * * * *   * *\n"
+  "*  **  *  * *_* * * *  * *_  * *  * *_* * \n\033[32m *   * *  *     * * * *    * * *   *   *  \n"
+  "  *** * *  *****  *** ****** ***    * *  \n                                    ***  \033[0m")
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz \n/feedback - Send feedback \n/language - Set the bot's language (Coming Soon!)")
