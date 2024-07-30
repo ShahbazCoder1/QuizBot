@@ -1,4 +1,4 @@
-# Quizly Bot
+# Quizly
 
 Quizly Bot is a Telegram bot that allows users to take quizzes on various subjects and topics with adjustable difficulty levels.
 
