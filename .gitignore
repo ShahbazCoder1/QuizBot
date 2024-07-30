@@ -1,3 +1,4 @@
+#Ignore
 .idx/dev.nix
 .venv
 notrequired.txt
