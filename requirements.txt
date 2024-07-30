@@ -3,9 +3,9 @@ pip
 autopep8
 
 # App
-flask
 google-generativeai
 google-api-python-client
 tqdm
 python-telegram-bot
 python-telegram-bot==13.11 #when you are using python3
+python-telegram-bot --upgrade
