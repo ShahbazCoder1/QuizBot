@@ -104,7 +104,6 @@ for key, value in quiz.items():
         incor += 1
         print("Incorrect")
 
-
 print(f"\nNumber of correct answers: {cor}")
 print(f"Number of incorrect answers: {incor} \n")  
 if cor==10:
