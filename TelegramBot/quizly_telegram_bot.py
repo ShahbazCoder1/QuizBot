@@ -23,10 +23,10 @@ from validation.validate_input import validate_subject, validate_topic
 from flask_web_dev.keep_alive import keep_alive #use this if you want to run it in a web deployment
 keep_alive()
 
-TOKEN: Final = os.getenv('TOKEN')
-BOT_USERNAME: Final = os.getenv('USERNAME')
-GOOGLE_API_KEY: Final = os.getenv('API_KEY')
-youtube_api_key: Final = os.getenv('YOUTUBE_API')
+TOKEN: Final = os.environ.get('TOKEN')
+BOT_USERNAME: Final = os.environ.get('USERNAME')
+GOOGLE_API_KEY: Final = os.environ.get('API_KEY')
+youtube_api_key: Final = os.environ.get('YOUTUBE_API')
 user_record = {}
 
 #console print
