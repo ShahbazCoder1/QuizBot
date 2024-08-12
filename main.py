@@ -37,7 +37,6 @@ print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our excit
 GOOGLE_API_KEY=os.getenv('API_KEY')
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
-
 model = genai.GenerativeModel('gemini-1.5-flash') #model setup
 # User input
 sub=input("Enter the subject you wish to take the quiz on: ").upper()
