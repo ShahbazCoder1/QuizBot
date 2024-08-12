@@ -33,5 +33,6 @@ __pycache__/
 # Sphinx documentation
 docs/_build/
 
-git
+#git
 .json
+quizly-429904-936ab87bb16e.json
