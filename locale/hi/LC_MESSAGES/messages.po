@@ -1,0 +1,185 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: quizly-bot\n"
+"Report-Msgid-Bugs-To: quizlyfeedback@gmail.com\n"
+"POT-Creation-Date: 2024-08-09 06:11+0000\n"
+"PO-Revision-Date: 2024-08-09 08:16\n"
+"Last-Translator: \n"
+"Language: hi\n" 
+"Language-Team: Hindi\n" 
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Gemini\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: quizly-bot\n"
+"X-Crowdin-Project-ID: 370289\n"
+"X-Crowdin-Language: hi\n" 
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 88\n"
+
+#: main.py:42
+msgid "Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz \n/feedback - Send feedback \n/language - Set the bot's language"
+msgstr "उपलब्ध कमांड इस प्रकार हैं: \n/start - अपनी क्विज़ शुरू करें \n/help - यह सहायता संदेश दिखाएँ \n/about - बॉट का विवरण देखें \n/stop- क्विज़ रोकें \n/feedback - प्रतिक्रिया भेजें \n/language - बॉट की भाषा सेट करें"
+
+#: main.py:51
+msgid "📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz.\n\nNOTE: This quiz is created with AI, and while we strive for accuracy, there's always a chance for a mistake.\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳"
+msgstr "📚 आप विभिन्न विषयों पर विभिन्न विषयों पर क्विज़ लेने के लिए इस बॉट का उपयोग कर सकते हैं। आप अपनी सुविधानुसार कठिनाई स्तर को भी समायोजित कर सकते हैं। \n\n🏅 आपकी क्विज़ समाप्त करने के बाद आपका स्कोर प्रदर्शित किया जाएगा।\n\nध्यान दें: यह क्विज़ AI से बनाई गई है, और जबकि हम सटीकता के लिए प्रयास करते हैं, हमेशा गलती की संभावना रहती है।\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳"
+
+#: main.py:58
+msgid "Hindi"
+msgstr "हिंदी"
+
+#: main.py:59
+msgid "Spanish"
+msgstr "स्पेनिश"
+
+#: main.py:63, 66
+msgid "Select the Language for the Bot:"
+msgstr "बॉट के लिए भाषा चुनें:"
+
+#: main.py:71
+msgid "Enter your Feedback message: \n\nIf you don't want to send Feedback, type /cancel"
+msgstr "अपना प्रतिक्रिया संदेश दर्ज करें: \n\nयदि आप प्रतिक्रिया नहीं भेजना चाहते हैं, तो /cancel टाइप करें"
+
+#: main.py:77
+msgid "Feedback cancelled."
+msgstr "प्रतिक्रिया रद्द कर दी गई।"
+
+#: main.py:98
+msgid "Thank you for your feedback!"
+msgstr "आपकी प्रतिक्रिया के लिए धन्यवाद!"
+
+#: main.py:115, 122
+msgid "No active quiz to stop."
+msgstr "रोकने के लिए कोई सक्रिय क्विज़ नहीं है।"
+
+#: main.py:122
+msgid "No active quiz session found."
+msgstr "कोई सक्रिय क्विज़ सत्र नहीं मिला।"
+
+#: main.py:126
+msgid "The Quizly Quiz adventure begins now!"
+msgstr "क्विज़ली क्विज़ एडवेंचर अब शुरू होता है!"
+
+#: main.py:129
+msgid "/Language"
+msgstr "/भाषा"
+
+msgid "Continue"
+msgstr "जारी रखें"
+
+#: main.py:132
+msgid "Do you want to Change Quizly defualt language?"
+msgstr "क्या आप क्विज़ली की डिफ़ॉल्ट भाषा बदलना चाहते हैं?"
+
+#: main.py:171
+msgid "Enter the subject you wish to take the quiz on:"
+msgstr "वह विषय दर्ज करें जिस पर आप क्विज़ लेना चाहते हैं:"
+
+#: main.py:180
+msgid "Enter the topic you wish to take a quiz on:"
+msgstr "वह विषय दर्ज करें जिस पर आप क्विज़ लेना चाहते हैं:"
+
+#: main.py:183
+msgid "Invalid subject. Please enter a valid subject."
+msgstr "अमान्य विषय। कृपया एक मान्य विषय दर्ज करें।"
+
+#: main.py:201
+msgid "Enter the level of the quiz:"
+msgstr "क्विज़ का स्तर दर्ज करें:"
+
+#: main.py:203
+msgid "Invalid topic for {subject}. Please enter a relevant topic."
+msgstr "{subject} के लिए अमान्य विषय। कृपया एक प्रासंगिक विषय दर्ज करें।"
+
+#: main.py:208
+msgid "Generating quiz questions, please wait..."
+msgstr "क्विज़ प्रश्न तैयार हो रहे हैं, कृपया प्रतीक्षा करें..."
+
+#: main.py:234
+msgid "Generating quiz questions, please wait... \n\n𝐍𝐨𝐭𝐞: 𝐓𝐡𝐢𝐬 𝐪𝐮𝐢𝐳 𝐪𝐮𝐞𝐬𝐭𝐢𝐨𝐧𝐬 𝐢𝐬 𝐜𝐫𝐞𝐚𝐭𝐞𝐝 𝐰𝐢𝐭𝐡 𝐀𝐈, 𝐚𝐧𝐝 𝐰𝐡𝐢𝐥𝐞 𝐰𝐞 𝐬𝐭𝐫𝐢𝐯𝐞 𝐟𝐨𝐫 𝐚𝐜𝐜𝐮𝐫𝐚𝐜𝐲, 𝐭𝐡𝐞𝐫𝐞'𝐬 𝐚𝐥𝐰𝐚𝐲𝐬 𝐚 𝐜𝐡𝐚𝐧𝐜𝐞 𝐟𝐨𝐫 𝐚 𝐦𝐢𝐬𝐭𝐚𝐤𝐞."
+msgstr "क्विज़ प्रश्न तैयार हो रहे हैं, कृपया प्रतीक्षा करें... \n\nध्यान दें: यह क्विज़ प्रश्न AI से बनाए गए हैं, और जबकि हम सटीकता के लिए प्रयास करते हैं, हमेशा गलती की संभावना रहती है।"
+
+#: main.py:236
+msgid "Let's Begin"
+msgstr "आइए शुरू करें"
+
+#: main.py:352
+msgid "Congratulations! You have completed the quiz on {topic}\n\n🎯 𝗬𝗼𝘂𝗿 𝘀𝗰𝗼𝗿𝗲:\n\n✅ Correct answers: {cor}\n❌ Incorrect answers: {incor}"
+msgstr "बधाई हो! आपने {topic} पर क्विज़ पूरी कर ली है\n\n🎯 आपका स्कोर:\n\n✅ सही उत्तर: {cor}\n❌ गलत उत्तर: {incor}"
+
+#: main.py:357
+msgid "\n\nHere are some recommended videos to improve your knowledge on {topic}:"
+msgstr "\n\n{topic} पर अपने ज्ञान को बेहतर बनाने के लिए यहां कुछ अनुशंसित वीडियो दिए गए हैं:"
+
+#: main.py:363
+msgid "\n\nGreat job! Your performance in the quiz on {topic} is outstanding! 🌟"
+msgstr "\n\nबहुत बढ़िया! {topic} पर क्विज़ में आपका प्रदर्शन उत्कृष्ट है! 🌟"
+
+#: main.py:386
+msgid "English is set as your Default Language"
+msgstr "अंग्रेजी आपकी डिफ़ॉल्ट भाषा के रूप में सेट है"
+
+#: main.py:396, 400
+msgid "{language_name} is set as your default language"
+msgstr "{language_name} आपकी डिफ़ॉल्ट भाषा के रूप में सेट है"
+
+#: main.py:373
+msgid "Invalid input. Please try again."
+msgstr "अमान्य इनपुट। कृपया पुनः प्रयास करें।"
+
+#: main.py:415
+msgid "Please use the provided buttons to interact with the bot."
+msgstr "बॉट के साथ इंटरैक्ट करने के लिए कृपया दिए गए बटनों का उपयोग करें।"
+
+#: main.py:421
+msgid "An error occurred. Please try again later."
+msgstr "एक त्रुटि हुई। कृपया बाद में पुनः प्रयास करें।"
+
+#: main.py:164
+msgid "Mathematics"
+msgstr "गणित"
+
+msgid "Physics"
+msgstr "भौतिक विज्ञान"
+
+#: main.py:165
+msgid "Chemistry"
+msgstr "रसायन विज्ञान"
+
+msgid "Biology"
+msgstr "जीव विज्ञान"
+
+#: main.py:166
+msgid "Computer Science"
+msgstr "कंप्यूटर विज्ञान"
+
+msgid "History"
+msgstr "इतिहास"
+
+#: main.py:167
+msgid "Geography"
+msgstr "भूगोल"
+
+msgid "Politics"
+msgstr "राजनीति विज्ञान"
+
+#: main.py:168
+msgid "English"
+msgstr "अंग्रेजी"
+
+msgid "General Knowledge"
+msgstr "सामान्य ज्ञान"
+
+#: main.py:196
+msgid "Beginner"
+msgstr "शुरुआती"
+
+#: main.py:197
+msgid "Intermediate"
+msgstr "मध्यवर्ती"
+
+#: main.py:198
+msgid "Advanced"
+msgstr "उन्नत"

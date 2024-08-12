@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: quizly-bot\n"
+"Report-Msgid-Bugs-To: quizlyfeedback@gmail.com\n"
+"POT-Creation-Date: 2024-08-09 06:11+0000\n"
+"PO-Revision-Date: 2024-08-09 08:16\n"
+"Last-Translator: \n"
+"Language: es\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Gemini\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: quizly-bot\n"
+"X-Crowdin-Project-ID: 370289\n"
+"X-Crowdin-Language: es\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 88\n"
+
+#: main.py:42
+msgid "Here are the available commands: \n/start - Begin with your quiz \n/help - Show this help message \n/about - See a description of the bot \n/stop- Stop the quiz \n/feedback - Send feedback \n/language - Set the bot's language"
+msgstr "Estos son los comandos disponibles: \n/start - Comenzar con tu quiz \n/help - Mostrar este mensaje de ayuda \n/about - Ver una descripción del bot \n/stop - Detener el quiz \n/feedback - Enviar comentarios \n/language - Establecer el idioma del bot"
+
+#: main.py:51
+msgid "📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz.\n\nNOTE: This quiz is created with AI, and while we strive for accuracy, there's always a chance for a mistake.\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳"
+msgstr "📚 Puedes usar este bot para realizar cuestionarios sobre diferentes temas en varios tópicos. También puedes ajustar el nivel de dificultad según tu conveniencia. \n\n🏅 Tu puntuación se mostrará después de que termines el cuestionario.\n\nNOTA: Este cuestionario está creado con IA, y aunque nos esforzamos por la precisión, siempre existe la posibilidad de un error.\n\nHecho con ❤️ con orgullo en India 🇮🇳"
+
+#: main.py:58
+msgid "Hindi"
+msgstr "Hindi"
+
+#: main.py:59
+msgid "Spanish"
+msgstr "Español"
+
+#: main.py:63, 66
+msgid "Select the Language for the Bot:"
+msgstr "Selecciona el idioma para el Bot:"
+
+#: main.py:71
+msgid "Enter your Feedback message: \n\nIf you don't want to send Feedback, type /cancel"
+msgstr "Introduce tu mensaje de comentarios: \n\nSi no quieres enviar comentarios, escribe /cancel"
+
+#: main.py:77
+msgid "Feedback cancelled."
+msgstr "Comentarios cancelados."
+
+#: main.py:98
+msgid "Thank you for your feedback!"
+msgstr "¡Gracias por tus comentarios!"
+
+#: main.py:115, 122
+msgid "No active quiz to stop."
+msgstr "No hay ningún cuestionario activo que detener."
+
+#: main.py:122
+msgid "No active quiz session found."
+msgstr "No se encontró ninguna sesión de cuestionario activa."
+
+#: main.py:126
+msgid "The Quizly Quiz adventure begins now!"
+msgstr "¡La aventura del Quizly Quiz comienza ahora!"
+
+#: main.py:129
+msgid "/Language"
+msgstr "/Idioma"
+
+#: main.py:129
+msgid "Continue"
+msgstr "Continuar"
+
+#: main.py:132
+msgid "Do you want to Change Quizly defualt language?"
+msgstr "¿Quieres cambiar el idioma predeterminado de Quizly?"
+
+#: main.py:171
+msgid "Enter the subject you wish to take the quiz on:"
+msgstr "Introduce el tema sobre el que deseas realizar el cuestionario:"
+
+#: main.py:180
+msgid "Enter the topic you wish to take a quiz on:"
+msgstr "Introduce el tema sobre el que deseas realizar un cuestionario:"
+
+#: main.py:183
+msgid "Invalid subject. Please enter a valid subject."
+msgstr "Tema inválido. Introduce un tema válido."
+
+#: main.py:201
+msgid "Enter the level of the quiz:"
+msgstr "Introduce el nivel del cuestionario:"
+
+#: main.py:203
+msgid "Invalid topic for {subject}. Please enter a relevant topic."
+msgstr "Tema inválido para {subject}. Introduce un tema relevante."
+
+#: main.py:208
+msgid "Generating quiz questions, please wait..."
+msgstr "Generando preguntas del cuestionario, por favor espera..."
+
+#: main.py:234
+msgid "Generating quiz questions, please wait... \n\n𝐍𝐨𝐭𝐞: 𝐓𝐡𝐢𝐬 𝐪𝐮𝐢𝐳 𝐪𝐮𝐞𝐬𝐭𝐢𝐨𝐧𝐬 𝐢𝐬 𝐜𝐫𝐞𝐚𝐭𝐞𝐝 𝐰𝐢𝐭𝐡 𝐀𝐈, 𝐚𝐧𝐝 𝐰𝐡𝐢𝐥𝐞 𝐰𝐞 𝐬𝐭𝐫𝐢𝐯𝐞 𝐟𝐨𝐫 𝐚𝐜𝐜𝐮𝐫𝐚𝐜𝐲, 𝐭𝐡𝐞𝐫𝐞'𝐬 𝐚𝐥𝐰𝐚𝐲𝐬 𝐚 𝐜𝐡𝐚𝐧𝐜𝐞 𝐟𝐨𝐫 𝐚 𝐦𝐢𝐬𝐭𝐚𝐤𝐞."
+msgstr "Generando preguntas del cuestionario, por favor espera... \n\nNota: Las preguntas de este cuestionario se crean con IA, y aunque nos esforzamos por la precisión, siempre existe la posibilidad de un error."
+
+#: main.py:236
+msgid "Let's Begin"
+msgstr "Comencemos"
+
+#: main.py:352
+msgid "Congratulations! You have completed the quiz on {topic}\n\n🎯 𝗬𝗼𝘂𝗿 𝘀𝗰𝗼𝗿𝗲:\n\n✅ Correct answers: {cor}\n❌ Incorrect answers: {incor}"
+msgstr "¡Felicidades! Has completado el cuestionario sobre {topic}\n\n🎯 Tu puntuación:\n\n✅ Respuestas correctas: {cor}\n❌ Respuestas incorrectas: {incor}"
+
+#: main.py:357
+msgid "\n\nHere are some recommended videos to improve your knowledge on {topic}:"
+msgstr "\n\nAquí tienes algunos vídeos recomendados para mejorar tus conocimientos sobre {topic}:"
+
+#: main.py:363
+msgid "\n\nGreat job! Your performance in the quiz on {topic} is outstanding! 🌟"
+msgstr "\n\n¡Buen trabajo! ¡Tu rendimiento en el cuestionario sobre {topic} es sobresaliente! 🌟"
+
+#: main.py:373
+msgid "Invalid input. Please try again."
+msgstr "Entrada inválida. Por favor, inténtalo de nuevo."
+
+#: main.py:386
+msgid "English is set as your Default Language"
+msgstr "El inglés está configurado como tu idioma predeterminado"
+
+#: main.py:396, 400
+msgid "{language_name} is set as your default language"
+msgstr "{language_name} está configurado como tu idioma predeterminado"
+
+#: main.py:415
+msgid "Please use the provided buttons to interact with the bot."
+msgstr "Por favor, utiliza los botones proporcionados para interactuar con el bot."
+
+#: main.py:421
+msgid "An error occurred. Please try again later."
+msgstr "Se ha producido un error. Por favor, inténtalo de nuevo más tarde."
+
+#: main.py:164
+msgid "Mathematics"
+msgstr "Matemáticas"
+
+#: main.py:164
+msgid "Physics"
+msgstr "Física"
+
+#: main.py:165
+msgid "Chemistry"
+msgstr "Química"
+
+#: main.py:165
+msgid "Biology"
+msgstr "Biología"
+
+#: main.py:166
+msgid "Computer Science"
+msgstr "Ciencias de la Computación"
+
+#: main.py:166
+msgid "History"
+msgstr "Historia"
+
+#: main.py:167
+msgid "Geography"
+msgstr "Geografía"
+
+#: main.py:167
+msgid "Politics"
+msgstr "Política"
+
+#: main.py:168
+msgid "English"
+msgstr "Inglés"
+
+#: main.py:168
+msgid "General Knowledge"
+msgstr "Conocimientos Generales"
+
+#: main.py:196
+msgid "Beginner"
+msgstr "Principiante"
+
+#: main.py:197
+msgid "Intermediate"
+msgstr "Intermedio"
+
+#: main.py:198
+msgid "Advanced"
+msgstr "Avanzado"

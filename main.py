@@ -4,7 +4,7 @@ Code Written by: 𝗠𝗱 𝗦𝗵𝗮𝗵𝗯𝗮𝘇 𝗛𝗮𝘀𝗵𝗺𝗶 
 programing languages: Python
 Description: This code is a quiz bot that generates a quiz based on the user's chosen subject, topic, and difficulty level 
 using the Google Generative AI API, presents the questions to the user, and provides feedback on their performance. A simple
-Console based game with 10 questions. This code is further modified into a Telegram Bot 'Quizly'.
+Console based game with 10 questions. 𝐓𝐡𝐢𝐬 𝐜𝐨𝐝𝐞 𝐢𝐬 𝐟𝐮𝐫𝐭𝐡𝐞𝐫 𝐦𝐨𝐝𝐢𝐟𝐢𝐞𝐝 𝐢𝐧𝐭𝐨 𝐚 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦 𝐁𝐨𝐭 '𝐐𝐮𝐢𝐳𝐥𝐲'.
 Code Version: V1.0
 Copyright ©: Open-source
 '''
@@ -34,7 +34,7 @@ print( '''
 print("Welcome to Quiz Bot. Get ready to challenge your knowledge with our exciting quiz. Choose the subject, topic and difficulty level according to your convenience and answer the questions that follows.\n")
 
 # Program Start here:
-GOOGLE_API_KEY=os.getenv('AIzaSyC_1F8N1oLYOXvv_MJ21Yp0GlRU6ksT2R4')
+GOOGLE_API_KEY=os.getenv('API_KEY')
 
 genai.configure(api_key=GOOGLE_API_KEY) #apikey configuration
 

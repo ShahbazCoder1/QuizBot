@@ -1,5 +1,37 @@
 #Ignore
 .idx/dev.nix
-.venv
 notrequired.txt
 .vscode
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Translations
+*.mo
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+git
+.json
