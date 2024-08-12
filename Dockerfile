@@ -37,4 +37,4 @@ ENV RECEIVER_EMAIL = RECEIVER_EMAIL
 EXPOSE 8080
 
 # Command to run the Flask application
-CMD ["python", "main.py"]
+CMD ["python", "TelegramBot/quizly_telegram_bot.py"]
