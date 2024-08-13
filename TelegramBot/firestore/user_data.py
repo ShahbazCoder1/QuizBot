@@ -10,9 +10,8 @@ Copyright ©: Open-source
 
 import firebase_admin
 from firebase_admin import credentials, firestore
-import os
 
-cred = credentials.Certificate('quizly-429904-936ab87bb16e.json') #give your service.json file path here
+cred = credentials.Certificate('service_account.json') #give your service.json file path here
 app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
