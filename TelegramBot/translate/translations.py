@@ -17,7 +17,7 @@ class Translations:
         self.chat_languages = {}
         
         localedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'locale'))
-        for lang in ['en', 'es', 'hi']:
+        for lang in ['en', 'es', 'hi','bn', 'te', 'zh_CN']:
             try:
                 self.translations[lang] = gettext.translation('messages', localedir, languages=[lang], fallback=True)
             except Exception as e:

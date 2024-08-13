@@ -11,7 +11,7 @@ import google.generativeai as genai
 import os
 
 genai.configure(api_key=os.getenv('API_KEY'))
-model = genai.GenerativeModel('gemini-1.0-pro')
+model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
 #convert string to bool
 def str_to_bool(s):
@@ -24,14 +24,20 @@ def str_to_bool(s):
 
 #validate Subject
 async def validate_subject(subject):
-    prompt = f"Is \"{subject}\" a valid academic subject or field of study? Please respond with only 'True' or 'False'."
+    prompt = f"Is \"{subject}\" a valid academic subject or field of study? Please respond with only bool value that is 'True' or 'False'."
     response = model.generate_content(prompt)
     #print(response.text)
-    return str_to_bool(response.text)
+    try:
+        return response.text
+    except:
+        return str_to_bool(response.text)
 
 #validate if topic is from that subject only
 async def validate_topic(subject, topic):
-    prompt = f"Is \"{topic}\" a valid topic within the subject of \"{subject}\"? Please respond with only 'True' or 'False'."
+    prompt = f"Is \"{topic}\" a valid topic within the subject of \"{subject}\"? Please respond with only bool value that is 'True' or 'False'."
     response = model.generate_content(prompt)
     #print(response.text)
-    return str_to_bool(response.text)
+    try:
+        return response.text
+    except:
+        return str_to_bool(response.text)
