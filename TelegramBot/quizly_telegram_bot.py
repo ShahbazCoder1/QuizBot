@@ -56,7 +56,8 @@ async def set_language(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     message = context.user_data.get('message')
     keyboard = [
         [InlineKeyboardButton(_(chat_id,"English"), callback_data="en:English"),InlineKeyboardButton(_(chat_id,"Hindi"), callback_data="hi:Hindi")],
-        [InlineKeyboardButton(_(chat_id,"Spanish"), callback_data="es:Spanish")],
+        [InlineKeyboardButton(_(chat_id,"Bengali"), callback_data="bn:Bengali"),InlineKeyboardButton(_(chat_id,"Spanish"), callback_data="es:Spanish")],
+        [InlineKeyboardButton(_(chat_id,"Telugu"), callback_data="te:Telugu"),InlineKeyboardButton(_(chat_id,"Mandarin Chinese"), callback_data="zh_CN:Mandarin Chinese")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     if message is not None:

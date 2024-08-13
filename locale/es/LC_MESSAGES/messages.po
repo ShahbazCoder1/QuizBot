@@ -26,13 +26,25 @@ msgstr "Estos son los comandos disponibles: \n/start - Comenzar con tu quiz \n/h
 msgid "📚 You can use this bot to take quizzes on different subjects across various topics. You can also adjust the difficulty level according to your convenience. \n\n🏅 Your score will be displayed after you finish the quiz.\n\nNOTE: This quiz is created with AI, and while we strive for accuracy, there's always a chance for a mistake.\n\n𝗪𝗶𝘁𝗵 ❤️ 𝗽𝗿𝗼𝘂𝗱𝗹𝘆 𝗺𝗮𝗱𝗲 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮 🇮🇳"
 msgstr "📚 Puedes usar este bot para realizar cuestionarios sobre diferentes temas en varios tópicos. También puedes ajustar el nivel de dificultad según tu conveniencia. \n\n🏅 Tu puntuación se mostrará después de que termines el cuestionario.\n\nNOTA: Este cuestionario está creado con IA, y aunque nos esforzamos por la precisión, siempre existe la posibilidad de un error.\n\nHecho con ❤️ con orgullo en India 🇮🇳"
 
-#: main.py:58
+#: main.py:59
 msgid "Hindi"
 msgstr "Hindi"
 
-#: main.py:59
+#: main.py:60
 msgid "Spanish"
 msgstr "Español"
+
+#: main.py:60
+msgid "Bengali"
+msgstr "Bengalí"
+
+#: main.py:61
+msgid "Telugu"
+msgstr "Telugu"
+
+#: main.py:61
+msgid "Mandarin Chinese"
+msgstr "Chino Mandarín"
 
 #: main.py:63, 66
 msgid "Select the Language for the Bot:"
