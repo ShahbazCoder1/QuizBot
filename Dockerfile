@@ -6,6 +6,22 @@ WORKDIR /app
 
 COPY . /app
 
+ARG TOKEN
+ARG BOT_USERNAME
+ARG GOOGLE_API_KEY
+ARG YOUTUBE_API_KEY
+ARG FROM_EMAIL
+ARG FROM_PASSWORD
+ARG TO_EMAIL
+
+ENV TOKEN=${TOKEN} \
+    BOT_USERNAME=${BOT_USERNAME} \
+    GOOGLE_API_KEY=${GOOGLE_API_KEY} \
+    YOUTUBE_API_KEY=${YOUTUBE_API_KEY} \
+    FROM_EMAIL=${FROM_EMAIL} \
+    FROM_PASSWORD=${FROM_PASSWORD} \
+    TO_EMAIL=${TO_EMAIL}
+
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt && \
     pip install python-telegram-bot --upgrade
@@ -43,5 +59,4 @@ RUN if [ -f locale/en/LC_MESSAGES/messages.po ]; then \
     
 EXPOSE 8080
 
-# Command to run the Flask application
-CMD ["python", "TelegramBot/quizly_telegram_bot.py"]
+CMD gunicorn app:app & python TelegramBot/quizly_telegram_bot.py

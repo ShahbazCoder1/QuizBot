@@ -20,8 +20,6 @@ from firestore.user_data import get_user_record, add_user_record, update_user_re
 from translate.translations import _, translations
 from validation.validate_dict import get_validated_dict, convert_dict, escape_reserved_characters
 from validation.validate_input import validate_subject, validate_topic
-from flask_web_dev.keep_alive import keep_alive #use this if you want to run it in a web deployment
-keep_alive()
 
 TOKEN: Final = os.getenv('TOKEN')
 BOT_USERNAME: Final = os.getenv('USERNAME')
