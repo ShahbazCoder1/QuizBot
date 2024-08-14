@@ -89,7 +89,7 @@ Note: Make sure to update your translations and recompile .mo files whenever you
 
 ## Google Project IDX Setup
 
-For users working with Google Project IDX, we provide a `Project-IDX_nix_setup.txt` file in the repository. This file contains the `.idx/dev.nix` configuration used in this project. To set up your Project IDX workspace:
+For users working with [Google Project IDX](https://idx.google.com/), we provide a `Project-IDX_nix_setup.txt` file in the repository. This file contains the `.idx/dev.nix` configuration used in this project. To set up your Project IDX workspace:
 
 1. Create a `.idx` directory in your Project IDX workspace if it doesn't already exist.
 2. Create a `dev.nix` file inside the `.idx` directory.
