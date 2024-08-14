@@ -5,6 +5,7 @@ autopep8
 
 # App
 Flask
+gunicorn
 google-generativeai
 google-api-python-client
 firebase-admin
