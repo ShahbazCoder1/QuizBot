@@ -1,0 +1,71 @@
+# To learn more about how to use Nix to configure your environment
+# see: https://developers.google.com/idx/guides/customize-idx-env
+{ pkgs, ... }: {
+  # Which nixpkgs channel to use.
+  channel = "stable-23.11"; # or "unstable"
+  services.docker.enable=true;
+  # Use https://search.nixos.org/packages to find packages
+  packages = [
+    # pkgs.go
+    pkgs.python3
+    pkgs.python311Packages.pip
+    pkgs.gettext
+    # pkgs.nodejs_20
+    # pkgs.nodePackages.nodemon
+  ];
+
+  # Sets environment variables in the workspace
+  env = {
+    TOKEN = "Token Here";
+    USERNAME = "Username Here";
+    API_KEY = "Gemini API Here";
+    YOUTUBE_API = "Api Here";
+    SEND_EMAIL = "Email Here";
+    PASSWORD = "Password";
+    RECEIVER_EMAIL = "Email Here";
+  };
+  idx = {
+    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    extensions = [
+      #"vscodevim.vim"
+      "ms-python.python"
+    ];
+
+    # Enable previews
+    previews = {
+      enable = true;
+      previews = {
+        # web = {
+        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
+        #   # and show it in IDX's web preview panel
+        #   command = ["npm" "run" "dev"];
+        #   manager = "web";
+        #   env = {
+        #     # Environment variables to set for your server
+        #     PORT = "$PORT";
+        #   };
+        # };
+      };
+    };
+
+    # Workspace lifecycle hooks
+    workspace = {
+      # Runs when a workspace is first created
+      onCreate = {
+        create-venv = ''
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
+        '';
+      };
+      # Runs when the workspace is (re)started
+      onStart = {
+        create-venv = ''
+          source .venv/bin/activate
+          pip install python-telegram-bot --upgrade
+          gunicorn app:app & python TelegramBot/quizly_telegram_bot.py
+        '';
+      };
+    };
+  };
+}
