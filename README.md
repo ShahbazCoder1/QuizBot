@@ -147,3 +147,9 @@ This project is open source and available under the [GPL-3.0 License](LICENSE).
 ## Support
 
 If you encounter any issues or have questions, please open an issue on the GitHub repository.
+
+## Demo Video
+
+[![Quizly Bot Demo](https://img.youtube.com/vi/QYndovP_68E/0.jpg)](https://www.youtube.com/watch?v=QYndovP_68E)
+
+Click the image above to watch a demo of the Quizly Bot in action!
