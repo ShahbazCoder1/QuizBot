@@ -87,7 +87,7 @@ Quizly is an intelligent Telegram bot that offers engaging quizzes on various su
     gunicorn app:app & python TelegramBot/quizly_telegram_bot.py
 Note: Make sure to update your translations and recompile .mo files whenever you add or modify translatable strings in your code.
 
-## Google Project IDX Setup
+## Project IDX Setup
 
 For users working with [Google Project IDX](https://idx.google.com/), we provide a `Project-IDX_nix_setup.txt` file in the repository. This file contains the `.idx/dev.nix` configuration used in this project. To set up your Project IDX workspace:
 
