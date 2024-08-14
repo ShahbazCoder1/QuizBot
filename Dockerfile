@@ -59,4 +59,5 @@ RUN if [ -f locale/en/LC_MESSAGES/messages.po ]; then \
     
 EXPOSE 8080
 
+#Run on Production mode
 CMD gunicorn app:app & python TelegramBot/quizly_telegram_bot.py
