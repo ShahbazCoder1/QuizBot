@@ -4,10 +4,13 @@
 ![Python](https://img.shields.io/badge/python-3.7%2B-blue)
 ![Telegram](https://img.shields.io/badge/Telegram-Bot-blue?logo=telegram)
 [![Live](https://img.shields.io/badge/Live-Quizly%20Bot-brightgreen?style=flat&logo=telegram)](https://bot-d5sa.onrender.com)
+![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FShahbazCoder1%2FQuizBot&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)
+![GitHub watchers](https://img.shields.io/github/watchers/ShahbazCoder1/QuizBot.svg?style=social)
+![GitHub forks](https://img.shields.io/github/forks/ShahbazCoder1/QuizBot?style=social)
 
 Quizly is an intelligent Telegram bot that offers engaging quizzes on various subjects with adjustable difficulty levels. Powered by Google's Generative AI, it provides a dynamic learning experience for users.
 
-[![Chat with Quizly](https://img.shields.io/badge/Chat%20with-Quizly-blue?style=for-the-badge&logo=telegram)](https://t.me/@Quisly_Bot)
+[![Chat with Quizly](https://img.shields.io/badge/Chat%20with-Quizly-blue?style=for-the-badge&logo=telegram)](https://t.me/Quisly_Bot)
 
 ![Quizly Banner](https://github.com/ShahbazCoder1/QuizBot/blob/main/Images/Quizly%20Banner.jpg)
 
